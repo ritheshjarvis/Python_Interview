@@ -11,6 +11,14 @@ If the middle element is the target value, return its index.
 If the target is smaller than the middle element, repeat the search on the left half.
 If the target is greater than the middle element, repeat the search on the right half.
 Continue this process until the element is found or the search space is empty.
+
+Time Complexity:
+    Best case: 
+        O(1) (if the middle element is the target)
+    Average case: 
+        O(logn) (since the search space is divided in half each time)
+    Worst case: 
+        O(logn)
 '''
 
 input_list = [3, 6, 8, 9, 10]
