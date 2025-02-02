@@ -2,7 +2,8 @@
 
 '''
 Binary search is an efficient searching algorithm used to find an element in a sorted array. 
-It follows the divide and conquer approach, repeatedly dividing the search space in half until the element is found or the search space is empty.
+It follows the divide and conquer approach, repeatedly dividing the search space in half until
+the element is found or the search space is empty.
 
 Algorithm Steps:
 Find the middle element of the array.
