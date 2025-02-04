@@ -1,4 +1,4 @@
-# Fibonacci series without Recursion
+# Fibonacci Series without Recursion
 
 def fibonacci_series(n):
     series = [0, 1]
