@@ -1,5 +1,5 @@
 """
-Positional Arguments:
+1. Positional Arguments:
 These are the simplest type of arguments. When you call a function, the values you pass are matched with the
 function’s parameters by their order (position).
 """
@@ -11,7 +11,7 @@ def add(a, b, c):
 print(add(1, 2, 3))  # Output: 6
 
 """
-Default (or Optional) Arguments:
+2. Default (or Optional) Arguments:
 You can assign a default value to one or more parameters in the function definition. 
 These values are used if the caller does not provide them. Default arguments must come after 
 any non-default (required) arguments. 
