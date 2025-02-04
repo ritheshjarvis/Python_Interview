@@ -1,4 +1,14 @@
 """
+Summary:
+1. Positional Arguments: Matched by order.
+2. Default Arguments: Provide fallback values if not specified; they must follow required arguments.
+3. Keyword Arguments: Passed by name; allow you to specify arguments out of order.
+4. Arbitrary Positional Arguments (*args): Gather extra positional arguments into a tuple.
+5. Arbitrary Keyword Arguments (**kwargs): Gather extra keyword arguments into a dictionary.
+6. Positional-Only / Keyword-Only: Newer features (Python 3.8+) that let you enforce how arguments are passed.
+"""
+
+"""
 1. Positional Arguments:
 These are the simplest type of arguments. When you call a function, the values you pass are matched with the
 function’s parameters by their order (position).
@@ -34,7 +44,7 @@ def student_info(name, age, grade):
 
 # Keyword arguments can be passed in any order:
 student_info(age=12, name="Charlie", grade="7th")
-When mixing positional and keyword arguments in a function call, all positional arguments must come before any keyword arguments.
+# When mixing positional and keyword arguments in a function call, all positional arguments must come before any keyword arguments.
 
 """
 4. Arbitrary Positional Arguments (*args):
@@ -63,3 +73,27 @@ print_info(name="Dana", age=20, city="New York")
 # name: Dana
 # age: 20
 # city: New York
+
+"""
+Positional-Only and Keyword-Only Arguments (Advanced):
+Starting in Python 3.8, you can specify that some parameters must be passed by position only 
+(using a / in the parameter list) or by keyword only (by placing a * before them).
+"""
+
+# Positional-only parameters:
+
+def func(a, b, /, c, d):
+    # a and b can only be passed positionally; c and d can be positional or keyword.
+    print(a, b, c, d)
+
+func(1, 2, 3, 4)            # Valid.
+# func(a=1, b=2, c=3, d=4)   # Error: a and b cannot be passed by keyword.
+
+# Keyword-only parameters:
+
+def func(a, b, *, c, d):
+    # c and d must be passed as keyword arguments.
+    print(a, b, c, d)
+
+func(1, 2, c=3, d=4)  # Valid.
+# func(1, 2, 3, 4)   # Error: c and d must be specified with keywords.
