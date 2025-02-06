@@ -75,7 +75,7 @@ print_info(name="Dana", age=20, city="New York")
 # city: New York
 
 """
-Positional-Only and Keyword-Only Arguments (Advanced):
+6. Positional-Only and Keyword-Only Arguments (Advanced):
 Starting in Python 3.8, you can specify that some parameters must be passed by position only 
 (using a / in the parameter list) or by keyword only (by placing a * before them).
 """
