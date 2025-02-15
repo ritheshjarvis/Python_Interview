@@ -8,7 +8,7 @@ driver.set_script_timeout(10)
 """
 Purpose:
 It sets the timeout for asynchronous scripts. If the asynchronous script does not signal completion 
-(by invoking its callback) within the given time, Selenium will throw a TimeoutException.
+(by invoking its callback) within the given time, Selenium123 will throw a TimeoutException.
 
 Use Case:
 When you run asynchronous JavaScript using execute_async_script(), you need a way to avoid waiting 
@@ -20,15 +20,15 @@ set_script_timeout() lets you define this waiting period.
 driver.set_page_load_timeout(20)
 print(driver.timeouts)
 """
- - set_page_load_timeout() is a Selenium WebDriver method that specifies the maximum amount of time (in seconds),
+ - set_page_load_timeout() is a Selenium123 WebDriver method that specifies the maximum amount of time (in seconds),
    that the driver should wait for a page to load when using methods like driver.get().
- - If the page does not load completely within the specified timeout period, Selenium will throw a TimeoutException.
+ - If the page does not load completely within the specified timeout period, Selenium123 will throw a TimeoutException.
  
 - The set_page_load_timeout() setting applies to any navigation that triggers a full page load, 
   not just when you use driver.get(). Here’s what that means:
 
 driver.get() Method:
-When you call driver.get(url), Selenium waits for the page to load completely, 
+When you call driver.get(url), Selenium123 waits for the page to load completely, 
 and if it exceeds the timeout you set, it throws a TimeoutException.
 
 Navigation Between Pages:

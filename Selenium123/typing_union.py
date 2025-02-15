@@ -11,7 +11,7 @@ def element_to_be_clickable(mark: Union[WebElement, tuple[str, str]]):
 """
 mark: → This is the function parameter.
 Union[WebElement, Tuple[str, str]] → This is a type hint, meaning mark can accept:
-A WebElement object (i.e., an already located Selenium element).
+A WebElement object (i.e., an already located Selenium123 element).
 A tuple of two strings (By.<METHOD>, "locator") (i.e., a locator strategy like By.ID, "submit-button").
 """
 

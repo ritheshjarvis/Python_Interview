@@ -29,6 +29,8 @@ driver.implicitly_wait(20)
 element = driver.find_element(By.ID, 'confirmBox')
 
 
+
+
 driver.execute_script("arguments[0].scrollIntoView(true);", element)
 # action = ActionChains(driver)
 #
