@@ -1,5 +1,6 @@
 """
 Class method:
+
  - A class method in Python is a method that's bound to the class rather than its instance.
  - It receives the class itself as its first argument (by convention named cls) rather than the instance (self).
  - Class methods are defined with the @classmethod decorator.
