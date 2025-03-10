@@ -1,3 +1,14 @@
-input_zip_path = r'C:\Users\Administrator\PycharmProjects\Siemens\siesta_poc\Siesta_Test_Automation\testing\ZIP\OUTPUT.zip'
+input_str = "abcabcabcef"
 
-print(input_zip_path)
+output = {}
+
+for _elem in input_str:
+    if _elem in output.keys():
+        output[_elem] = output[_elem] + 1
+    else:
+        output[_elem] = 1
+
+print(output)
+
+for index, (key, val) in enumerate(output.items()):
+   print(index, key, val)
