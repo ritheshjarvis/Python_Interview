@@ -1,14 +1,8 @@
-input_str = "abcabcabcef"
+_input = [3, 6, 8, 6]
+duplicate = set()
 
-output = {}
+for _item in _input:
+    if _input.count(_item) > 1:
+        duplicate.add(_item)
 
-for _elem in input_str:
-    if _elem in output.keys():
-        output[_elem] = output[_elem] + 1
-    else:
-        output[_elem] = 1
-
-print(output)
-
-for index, (key, val) in enumerate(output.items()):
-   print(index, key, val)
+print(list(duplicate))
