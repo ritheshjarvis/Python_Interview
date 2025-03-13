@@ -1,8 +1,9 @@
-_input = [3, 6, 8, 6]
-duplicate = set()
+input_list = [[1,2,3], [4,5,6], [7, 8, 9]]
+diagonal = []
+antidiagonal = []
 
-for _item in _input:
-    if _input.count(_item) > 1:
-        duplicate.add(_item)
+for key, _lst in enumerate(input_list):
+    antidiagonal.append(_lst[len(_lst) - 1 - key])
+    diagonal.append(_lst[key])
 
-print(list(duplicate))
+print(diagonal)
