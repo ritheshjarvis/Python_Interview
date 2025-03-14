@@ -1,30 +1,20 @@
-class Parent:
-    def __init__(self):
-        self.data = "Parent Data"
+# Binary Search
 
-class Child(Parent):
-    def __init__(self):
-        super().__init__()
-        self.data = "Child Data"
+input_array = [1, 2, 3, 6, 9]
+search = 3
+start = 0
+end = len(input_array)
 
-obj = Child()
-print(obj._Parent__data)   # ✅ Child Data
-print(obj.data)  # ✅ Parent Data
+out = 0
 
-"""
-🔹 How Name Mangling Works
-When a variable is declared with __ (double underscores) inside a class, Python automatically changes its name to:
+while end > start:
+    mid = start + ((end-start)//2)
+    if input_array[mid] == search:
+       out = mid
+       break
+    elif input_array[mid] < search:
+        start = mid + 1
+    else:
+        end = mid - 1
 
- _ClassName__attribute
-This prevents subclasses from accidentally overriding the variable.
-
-🔹 Example of Name Mangling
-"""
-class Parent:
-    def __init__(self):
-        self.__private_var = 42  # Private attribute
-
-obj = Parent()
-# print(obj.__private_var)  # ❌ AttributeError
-
-print(obj._Parent__private_var)  # ✅ Works (But not recommended)
+print(out)

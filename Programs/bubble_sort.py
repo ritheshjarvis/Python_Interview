@@ -1,9 +1,15 @@
-arr = [5, 3, 8, 6, 7, 2]
-i = 0
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False  # Optimization: Track if a swap happens
+        for j in range(n - i - 1):  # Last i elements are already sorted
+            if arr[j] > arr[j + 1]:  # Swap if elements are in the wrong order
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        if not swapped:  # If no swaps in a pass, the array is already sorted
+            break
 
-while i < len(arr) - 1:
-    if arr[i] > arr[i+1]:
-        arr[i], arr[i+1] = arr[i+1], arr[i]
-    i = i + 1
-
-print(arr)
+# Example usage:
+arr = [64, 34, 25, 12, 22, 11, 90]
+bubble_sort(arr)
+print("Sorted array:", arr)

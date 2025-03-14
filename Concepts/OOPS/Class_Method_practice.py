@@ -28,6 +28,9 @@ They can be used to cache results or maintain a registry of instances or configu
 
 4. Configuration Data:
 When configuration options or settings apply to the entire class, not to individual objects.
+
+Real world use case:
+Bank Account System: A class method can be used to manage interest rates for all bank accounts.
 """
 class Student:
     count: int = 0
