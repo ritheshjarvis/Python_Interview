@@ -33,7 +33,7 @@ Some generic animal sound
 
 🔹 Real-World Example:
 Think of a "Print" button that works differently for a PDF, Image, or Word file—each class provides its own print behavior.
-
+-----------------------------------------------------------------------------------------------------
 2️⃣ Method Overloading (Compile-Time Polymorphism)
 Python does not support true method overloading (like Java), but you can achieve similar behavior using default arguments or *args and **kwargs.
 
@@ -57,6 +57,7 @@ math = MathOperations()
 print(math.add(2, 3))        # Output: 5
 print(math.add(2, 3, 4, 5))  # Output: 14
 """
+---------------------------------------------------------------------------------------------------
 3️⃣ Operator Overloading
 Python allows operators like +, -, *, etc., to be redefined for custom behavior in user-defined classes.
 
@@ -104,4 +105,10 @@ take_off(Airplane()) # Output: Flying using jet engines!
 """
 ✅ Real-World Example:
 Any payment system (PayPal, Stripe, Razorpay) should have a process_payment() method, even though their implementations differ.
+"""
+
+"""
+Why Real Method Overloading is Not Possible in Python?
+1) Lack of static method signature
+2) Python functions don’t enforce strict type checking.
 """

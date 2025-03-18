@@ -21,8 +21,8 @@ Time Complexity:
         O(logn)
 '''
 
-input_list = [3, 6, 8, 9, 10]
-search = 2
+input_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+search = 12
 out_index = -1
 start = 0
 end = len(input_list) - 1
