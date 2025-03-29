@@ -89,6 +89,15 @@ def func(a, b, /, c, d):
 func(1, 2, 3, 4)            # Valid.
 # func(a=1, b=2, c=3, d=4)   # Error: a and b cannot be passed by keyword.
 
+"""
+7. using * (asterisk)
+a and b → Positional arguments (must be passed in order).
+
+c and d → Keyword-only arguments (must be passed using explicit keywords).
+
+* (asterisk) → Forces all arguments after it (c, d) to be keyword-only.
+
+"""
 # Keyword-only parameters:
 
 def func(a, b, *, c, d):

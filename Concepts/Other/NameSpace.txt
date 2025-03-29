@@ -1,0 +1,115 @@
+A namespace in Python is a system that ensures unique names for variables, functions, objects, and other identifiers to avoid naming conflicts. It acts like a dictionary where names (keys) are mapped to objects (values).
+
+Types of Namespaces in Python
+Python has different types of namespaces depending on where and how a name is defined:
+
+Built-in Namespace
+
+Contains built-in functions and objects like print(), len(), int, etc.
+Always available in Python programs.
+Example:
+-----------------------
+print(len("Hello"))  # 'len' is from the built-in namespace
+Global Namespace
+
+Includes names defined at the top level of a script or module.
+Accessible throughout the module.
+Example:
+-----------------------
+x = 10  # 'x' belongs to the global namespace
+def my_func():
+    print(x)  # Can access 'x' from the global namespace
+Local Namespace
+
+Exists inside a function when the function is called.
+Contains variables defined inside the function.
+Example:
+-----------------------
+def my_func():
+    y = 20  # 'y' is in the local namespace
+    print(y)
+my_func()
+Enclosing Namespace (Nonlocal Namespace)
+
+Found in nested functions.
+Variables from an outer (non-global) function are stored here.
+Example:
+-----------------------
+def outer():
+    z = 30  # Enclosing namespace
+    def inner():
+        print(z)  # Accessing the enclosing variable
+    inner()
+outer()
+Namespace Lookup Order (LEGB Rule)
+When Python encounters a variable, it looks for it in the following order:
+
+Local (L): Inside the current function.
+Enclosing (E): In enclosing functions (if any).
+Global (G): At the module level.
+Built-in (B): In the Python built-in namespace.
+Example:
+
+-----------------------
+x = "global"
+
+def outer():
+    x = "enclosing"
+
+    def inner():
+        x = "local"
+        print(x)  # Python finds 'x' in the local namespace first.
+
+    inner()
+
+outer()
+Output:
+
+bash
+Copy
+Edit
+local
+Would you like a more detailed example? 😊
+
+
+
+
+
+
+You said:
+how to print all the namespaces?
+ChatGPT said:
+In Python, you can print the contents of different namespaces using the following built-in functions:
+
+1. Print the Global Namespace
+To see all global variables and functions in the current script:
+
+-----------------------
+print(globals())  # Returns a dictionary of the global namespace
+2. Print the Local Namespace
+Inside a function, you can see all local variables:
+
+-----------------------
+def my_function():
+    a = 10
+    b = 20
+    print(locals())  # Prints the local namespace inside the function
+
+my_function()
+3. Print the Built-in Namespace
+To see all built-in functions, exceptions, and objects:
+
+-----------------------
+print(dir(__builtins__))  # Lists all built-in names available in Python
+Example to Show All Namespaces
+-----------------------
+x = 42  # Global variable
+
+def my_func():
+    y = "Hello"  # Local variable
+    print("Local Namespace:", locals())  # Print local namespace
+
+print("Global Namespace:", globals())  # Print global namespace
+print("Built-in Namespace:", dir(__builtins__))  # Print built-in namespace
+
+my_func()

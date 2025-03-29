@@ -1,0 +1,219 @@
+Multiple Inheritance in Python: Detailed Explanation with Example & Common Problems
+What is Multiple Inheritance?
+Multiple inheritance is a feature in object-oriented programming where a class can inherit attributes and methods from more than one parent class.
+
+Syntax of Multiple Inheritance in Python
+--------------------------------
+class Parent1:
+    # Parent 1 class
+    pass
+
+class Parent2:
+    # Parent 2 class
+    pass
+
+class Child(Parent1, Parent2):  
+    # Child class inherits from both Parent1 and Parent2
+    pass
+Example of Multiple Inheritance
+Let’s consider a real-world example of multiple inheritance. Suppose we have two classes:
+
+Person → Represents a general person with a name.
+Employee → Represents an employee with an employee ID.
+Manager → Inherits from both Person and Employee, meaning a manager is both a person and an employee.
+--------------------------------
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def show_name(self):
+        print(f"Name: {self.name}")
+
+class Employee:
+    def __init__(self, emp_id):
+        self.emp_id = emp_id
+
+    def show_id(self):
+        print(f"Employee ID: {self.emp_id}")
+
+# Multiple Inheritance: Manager inherits from both Person and Employee
+class Manager(Person, Employee):
+    def __init__(self, name, emp_id, department):
+        # Call constructors of both Parent classes
+        Person.__init__(self, name)
+        Employee.__init__(self, emp_id)
+        self.department = department
+
+    def show_department(self):
+        print(f"Department: {self.department}")
+
+# Creating an object of Manager class
+manager = Manager("Rithesh", 101, "IT")
+
+# Accessing methods from both parent classes
+manager.show_name()       # Output: Name: Rithesh
+manager.show_id()         # Output: Employee ID: 101
+manager.show_department() # Output: Department: IT
+✅ Manager class inherits both properties (name, emp_id) and methods (show_name, show_id) from both parent classes.
+
+Common Problems in Multiple Inheritance
+While multiple inheritance is powerful, it comes with some challenges, primarily the Diamond Problem, method resolution order (MRO), and conflicts in method overriding.
+
+1. Diamond Problem (Ambiguity in Inheritance)
+Problem:
+The diamond problem occurs when a class inherits from two classes that both inherit from the same base class.
+
+Example of Diamond Problem
+--------------------------------
+class A:
+    def show(self):
+        print("Class A")
+
+class B(A):
+    def show(self):
+        print("Class B")
+
+class C(A):
+    def show(self):
+        print("Class C")
+
+class D(B, C):  # D inherits from both B and C
+    pass
+
+obj = D()
+obj.show()  # Which 'show()' method will be called?
+Solution: Method Resolution Order (MRO)
+Python resolves this ambiguity using the C3 Linearization Algorithm (MRO).
+
+To check MRO:
+
+--------------------------------
+print(D.mro())
+Output:
+
+--------------------------------
+[<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>]
+Python searches for methods in depth-first, left-to-right order, ensuring that each class is only visited once.
+
+✅ Fix: Use super() in the correct order.
+
+--------------------------------
+class A:
+    def show(self):
+        print("Class A")
+
+class B(A):
+    def show(self):
+        super().show()
+        print("Class B")
+
+class C(A):
+    def show(self):
+        super().show()
+        print("Class C")
+
+class D(B, C):  
+    def show(self):
+        super().show()
+        print("Class D")
+
+obj = D()
+obj.show()
+Output:
+
+--------------------------------
+Class A
+Class C
+Class B
+Class D
+➡ Python ensures that each class is executed only once using MRO.
+
+2. Overriding Issues in Multiple Inheritance
+Problem:
+If multiple parent classes define the same method name, the child class may override an unintended method.
+
+--------------------------------
+class A:
+    def show(self):
+        print("Class A")
+
+class B:
+    def show(self):
+        print("Class B")
+
+class C(A, B):
+    pass
+
+obj = C()
+obj.show()  # Which 'show()' method gets called?
+Output:
+
+--------------------------------
+Class A
+➡ Since Python follows the MRO (left to right), it picks A first and ignores B.
+
+✅ Fix: Explicitly call methods if needed.
+
+--------------------------------
+class C(A, B):
+    def show(self):
+        A.show(self)
+        B.show(self)
+        print("Class C")
+
+obj = C()
+obj.show()
+Output:
+
+--------------------------------
+Class A
+Class B
+Class C
+Best Practices for Using Multiple Inheritance
+Avoid multiple inheritance if a simpler design works.
+
+Use single inheritance or composition (has-a relationship) when possible.
+Use super() instead of calling parent methods directly.
+
+Helps in maintaining a correct MRO and avoids duplicate calls.
+Check MRO using Class.mro() or help(Class).
+
+Helps debug method resolution issues.
+Be careful when overriding methods in multiple parent classes.
+
+Ensure there’s no unintended behavior due to method conflicts.
+Alternatives to Multiple Inheritance
+1. Composition (Has-a Relationship)
+Instead of multiple inheritance, you can use composition, where one class contains an instance of another class.
+
+--------------------------------
+class Engine:
+    def start(self):
+        print("Engine started")
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()  # Composition
+
+    def drive(self):
+        self.engine.start()
+        print("Car is moving")
+
+car = Car()
+car.drive()
+Output:
+
+--------------------------------
+Engine started
+Car is moving
+➡ Composition is often preferred over multiple inheritance to avoid conflicts.
+
+Summary
+Feature	Explanation
+Multiple Inheritance	A class inherits from more than one parent class.
+Diamond Problem	Ambiguity in method resolution when a class has multiple paths to the same base class.
+MRO (Method Resolution Order)	Python uses C3 Linearization (Depth-first, Left-to-right) to resolve method calls.
+Overriding Conflicts	Multiple parent classes may have the same method name, causing conflicts.
+Best Practices	Prefer composition over multiple inheritance when possible. Use super() properly.
+Conclusion
+Multiple inheritance is powerful but should be used carefully due to potential issues like method conflicts, MRO complexity, and the diamond problem. Understanding MRO and using super() properly helps avoid pitfalls.

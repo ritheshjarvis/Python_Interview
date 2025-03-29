@@ -1,0 +1,38 @@
+Selenium Interview questions and Answers
+
+1.How do you switch the frame if frame doesn't have name or id?
+A. We can use Index
+Ex: driver.switchTo().frame(0);
+
+2.Components of Selenium?
+A) Selenium IDE , Selenium WebDriver, Selenium Grid
+
+3.Difference between Assert vs Verify?
+A)Assert: It is a hard assertion. Code will stop execution and not continue further
+B.Verify: It is a soft assertion , code will not stop execution and continue execution.
+
+4.How to identify element in selenium?
+A)ID, name,xpath,css selectors,linktext,tag
+
+5.Explain StaleElement Exception ?
+A)Stale Element exception occurs in selenium when an action is attempted on a web element that's no longer attached to the DOM.
+
+6.Difference between driver.get() .and driver.navigate()?
+A) driver.get() is used to navigate URL and wait till page loads.
+driver.navigate() is used to navigate to URL and does not wait till page loadss.
+
+7.How do you scrollup and scrolldown in selenium?
+A) We can use JavaScriptExecutor interface.
+Ex: JavaScriptExecutor js=(JavaScriptExecutor)driver;
+js.executeScript("window.scrollBy(0,350)","");
+
+JavaScriptExecutor js=(JavaScriptExecutor)driver;
+js.executeScript("window.scrollTo(0,0)","");
+
+8.How do you enter text in textbox with out using sendKeys() method?
+A) We can use JavaScriptExecutor interface
+
+Ex:
+WebElement element = driver.findElement(By.id("input"));
+JavaScriptExecutor js=(JavaScriptExecutor)driver;
+js.executeScript("argument[0].value="text";",element);

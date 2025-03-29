@@ -8,7 +8,7 @@ def fibonacci_series(n):
         series.append(series[-1] + series[-2])
     return series
 
-def factorial_2(_count):
+def fibonacci_2(_count):
     _output = [0,1]
     if _count <= 1:
         return _output[0]
