@@ -19,6 +19,44 @@ def longest_substring_without_repeating(s: str) -> tuple:
     print(used_chars)
     return max_len, best_substring
 
+# https://www.youtube.com/watch?v=wiGpQwVHdE0
+class Solution:
+    def lenOfLongestSubstring(self, s: str) -> int:
+        char_set = set()
+        left = 0
+        _max = 0
+
+        for right in range(len(s)):
+            # print(right)
+            while s[right] in char_set:
+                char_set.remove(s[left])
+                left += 1
+            char_set.add(s[right])
+            _max = max(_max, len(char_set))
+        return _max, char_set
+
+    def lenOfLongestSubstring1(self, s: str) -> tuple:
+        char_set = set()
+        left = 0
+        _max = 0
+        start = 0
+
+        for right in range(len(s)):
+            while s[right] in char_set:
+                char_set.remove(s[left])
+                left += 1
+            char_set.add(s[right])
+            if right - left + 1 > _max:
+                _max = right - left + 1
+                start = left
+
+        return _max, s[start:start + _max]
+
+
+
+max_, char_set_ = Solution().lenOfLongestSubstring1('abcafg')
+print(max_, char_set_)
+
 if __name__ == "__main__":
     s = input("Enter a string: ")
     length, substring = longest_substring_without_repeating(s)

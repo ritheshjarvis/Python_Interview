@@ -1,0 +1,70 @@
+goto(
+        self,
+        url: str,
+        *,
+        timeout: typing.Optional[float] = None,
+        wait_until: typing.Optional[
+            Literal["commit", "domcontentloaded", "load", "networkidle"]
+        ] = None,
+------------------------------------------------------------------
+🌐 Browser Page Lifecycle Events
+1️⃣ commit
+Very early stage of navigation.
+
+Navigation is initiated and acknowledged by the browser, but no content has loaded yet.
+
+No document is available yet, no DOM, no JS.
+
+✅ Use when you're okay to proceed as soon as navigation is committed (rare).
+
+🧠 Analogy: The browser starts traveling to the URL, but hasn't reached the destination yet.
+------------------------------------------------------------------
+2️⃣ domcontentloaded (event: DOMContentLoaded)
+Fires when the initial HTML document is completely loaded and parsed.
+
+No need to wait for stylesheets, images, or subframes.
+
+JS is allowed to run, DOM is fully built.
+
+This is the ideal choice when interacting with DOM elements early, like form fields or tables.
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM is ready");
+});
+🧠 Analogy: The page’s skeleton is ready and interactive, but decoration (images/CSS) may still be coming.
+-----------------------------------------------------------------------
+3️⃣ load (event: load)
+Waits for everything:
+
+HTML ✅
+
+CSS ✅
+
+Images ✅
+
+Iframes ✅
+
+Fonts ✅
+
+Scripts ✅
+
+window.addEventListener("load", () => {
+    console.log("Page fully loaded");
+});
+🧠 Analogy: The entire page and all its resources are loaded — like waiting until your room is fully cleaned and decorated.
+---------------------------------------------------------------------------
+4️⃣ networkidle
+Playwright-specific term (inspired by Puppeteer).
+
+Waits until there are no more than 2 network connections for at least 500 ms.
+
+Useful when the page has lazy loading, AJAX calls, or dynamic content.
+
+🧠 Analogy: You don’t leave a web page until the internet traffic (XHR/fetch) has calmed down and stayed quiet for a bit.
+--------------------------------------------------------------------------
+📝 Summary Table
+Option	JS Event	Triggers When...	Best For
+"commit"	(None)	Navigation starts (request is sent)	Very early detection
+"domcontentloaded"	DOMContentLoaded	HTML fully parsed, DOM ready	DOM interaction (fast & safe)
+"load"	load	All resources (JS, CSS, images) loaded	Full page validation/screenshot
+"networkidle"	(Playwright-only)	Network is idle (no new requests for 500ms)	Dynamic/SPAs, lazy loading pages

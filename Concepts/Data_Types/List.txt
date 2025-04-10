@@ -1,0 +1,221 @@
+
+1. Adding Elements to a List
+append()
+Adds a single element at the end of the list.
+
+Syntax: list.append(element)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3]
+my_list.append(4)
+print(my_list)  # Output: [1, 2, 3, 4]
+extend()
+Extends the list by appending elements from another iterable (list, tuple, set, etc.).
+
+Syntax: list.extend(iterable)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3]
+my_list.extend([4, 5, 6])
+print(my_list)  # Output: [1, 2, 3, 4, 5, 6]
+insert()
+Inserts an element at a specified index.
+
+Syntax: list.insert(index, element)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 4]
+my_list.insert(2, 3)  # Insert 3 at index 2
+print(my_list)  # Output: [1, 2, 3, 4]
+2. Removing Elements from a List
+remove()
+Removes the first occurrence of a specified value.
+
+Syntax: list.remove(element)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3, 2]
+my_list.remove(2)  # Removes the first occurrence of 2
+print(my_list)  # Output: [1, 3, 2]
+pop()
+Removes and returns the element at the specified index. If no index is given, it removes and returns the last element.
+
+Syntax: list.pop(index)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3, 4]
+popped = my_list.pop(2)  # Removes element at index 2 (3)
+print(my_list)  # Output: [1, 2, 4]
+print(popped)   # Output: 3
+clear()
+Removes all elements from the list.
+
+Syntax: list.clear()
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3]
+my_list.clear()
+print(my_list)  # Output: []
+3. Searching for Elements
+index()
+Returns the index of the first occurrence of the specified element.
+
+Syntax: list.index(element, start, end)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3, 4, 2]
+print(my_list.index(2))  # Output: 1 (first occurrence)
+count()
+Returns the number of occurrences of an element.
+
+Syntax: list.count(element)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3, 2, 2, 4]
+print(my_list.count(2))  # Output: 3
+4. Sorting and Reversing a List
+sort()
+Sorts the list in ascending order (by default).
+
+Syntax: list.sort(reverse=False, key=function)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [3, 1, 4, 2]
+my_list.sort()
+print(my_list)  # Output: [1, 2, 3, 4]
+
+my_list.sort(reverse=True)  # Sorting in descending order
+print(my_list)  # Output: [4, 3, 2, 1]
+sorted() (Not a method, but a function)
+Returns a new sorted list without modifying the original.
+
+Syntax: sorted(iterable, reverse=False, key=function)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [3, 1, 4, 2]
+new_list = sorted(my_list)
+print(new_list)  # Output: [1, 2, 3, 4]
+print(my_list)   # Output: [3, 1, 4, 2] (original remains unchanged)
+reverse()
+Reverses the order of elements in the list.
+
+Syntax: list.reverse()
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3]
+my_list.reverse()
+print(my_list)  # Output: [3, 2, 1]
+5. Copying a List
+copy()
+Returns a shallow copy of the list.
+
+Syntax: list.copy()
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3]
+new_list = my_list.copy()
+print(new_list)  # Output: [1, 2, 3]
+Difference from = Assignment:
+
+python
+>>>>>>>>>>>>>>>>>>
+original = [1, 2, 3]
+copy1 = original  # Both reference the same list
+copy2 = original.copy()  # Creates a new list
+
+original.append(4)
+print(copy1)  # Output: [1, 2, 3, 4] (Same reference)
+print(copy2)  # Output: [1, 2, 3] (Independent copy)
+6. List Length
+len()
+Returns the number of elements in the list.
+
+Syntax: len(list)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+my_list = [1, 2, 3, 4]
+print(len(my_list))  # Output: 4
+7. Other Useful List Functions
+max() and min()
+max(list): Returns the largest element.
+
+min(list): Returns the smallest element.
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+numbers = [3, 1, 4, 2]
+print(max(numbers))  # Output: 4
+print(min(numbers))  # Output: 1
+sum()
+Returns the sum of all elements in the list.
+
+Syntax: sum(list)
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+numbers = [1, 2, 3, 4]
+print(sum(numbers))  # Output: 10
+any() and all()
+any(list): Returns True if at least one element is True.
+
+all(list): Returns True if all elements are True.
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+values = [0, 1, 2]
+print(any(values))  # Output: True (since 1 and 2 are True)
+print(all(values))  # Output: False (since 0 is False)
+List Comprehension (Bonus)
+A concise way to create or modify lists.
+
+Example:
+
+python
+>>>>>>>>>>>>>>>>>>
+squares = [x**2 for x in range(5)]
+print(squares)  # Output: [0, 1, 4, 9, 16]

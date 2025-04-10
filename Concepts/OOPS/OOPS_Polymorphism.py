@@ -4,6 +4,7 @@ Polymorphism means "many forms." In Python, it allows the same interface (method
 
 1️⃣ Method Overriding (Runtime Polymorphism)
 When a child class provides a specific implementation of a method already defined in its parent class.
+Method Signature: The name of the method + the parameter list (types and order).
 
 🔹 Example:
 """
