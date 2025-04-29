@@ -13,4 +13,3 @@ driver.find_element(By.ID, "")
 element = WebDriverWait(driver, 30).until(EC.element_to_be_clickable())
 
 driver.fullscreen_window()
-element.sc

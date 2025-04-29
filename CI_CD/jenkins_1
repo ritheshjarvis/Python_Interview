@@ -1,0 +1,77 @@
+pipeline {
+    agent {
+        label 'abc'
+          }
+    parameters {
+        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Branch to build')
+        choice(name: 'SCAN_TYPE', choices: ['abc', 'def', 'ghi', 'jkl'], description: 'Select a type of Scan ')
+    }
+    stages {
+        stage('Update regedit for LongPaths support') {
+            steps {
+                script {
+                    bat '''
+                    reg add "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\FileSystem" /v LongPathsEnabled /t REG_DWORD /d 1 /f
+                    '''
+                    def regQueryOutput = bat(script: 'reg query "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\FileSystem" /v LongPathsEnabled', returnStdout: true).trim()
+                    echo "Reg Query Output:\n${regQueryOutput}"
+                    if (regQueryOutput.contains("0x1")) {
+                        echo "LongPathsEnabled key is set to 1"
+                    } else {
+                        error("LongPathsEnabled key is set to 0")
+                    }
+                }
+            }
+        }
+        stage('Git Pull') {
+            steps {
+                script {
+                    git branch: "${params.GIT_BRANCH}", credentialsId: 'gitlab-jenkins-xyz', url: 'https://gitlab.xyz.one/abc/xyz'
+                }
+            }
+        }
+        stage('Verifying Python version > 3.12.') {
+            steps {
+                script {
+                    def pythonVersion = bat(script: 'python --version', returnStdout: true).trim()
+                    echo "Python version: ${pythonVersion}"
+                    def versionMatcher = pythonVersion =~ /Python (\d+)\.(\d+)\.(\d+)/
+                    if (versionMatcher) {
+                        def baseVersion = versionMatcher[0][1].toInteger()
+                        def subVersion = versionMatcher[0][2].toInteger()
+                        if (baseVersion < 3 || (baseVersion == 3 && subVersion < 12)) {
+                            error("Pipeline failed: Python version is less than 3.12.")
+                        }
+                    } else {
+                        error("Failed to parse Python version.")
+                    }
+                }
+            }
+        }
+        stage('Python Environment Setup - Installing Dependencies') {
+            steps {
+                bat '''
+                cd Automation
+                "C:\\Program Files\\Python312\\python" -m venv venv
+                call venv\\Scripts\\activate
+                cd Documentation\\Setup
+                "C:\\Program Files\\Python312\\python" -m pip install --index-url https://artifactory.xyz.abc.one:443/api/pypi/pip-virtual/simple --trusted-host artifactory.abc.xyz.one:443 -r requirement.txt
+                '''
+            }
+        }
+        stage('Robot Execution ') {
+            steps {
+                bat """
+                    python --version
+                    cd Automation
+                    cd TestExecution
+                    cd TestSuites
+                    dir
+                    echo xyz_${params.SCAN_TYPE}_Scan_Suite.robot
+                    robot xyz_${params.SCAN_TYPE}_Scan_Suite.robot
+                    """
+                }
+            }
+
+    }
+}

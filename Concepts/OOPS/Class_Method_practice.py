@@ -15,6 +15,7 @@ Class variable:
 
  - Class variables are used when you want to store data that is shared across all instances of a class rather than data unique to each instance.
  - They are defined within a class but outside any instance methods.
+ - Class variable are not bounded to instance
 
 1. Shared State:
 When you have information that should be the same for every instance of a class. For example,

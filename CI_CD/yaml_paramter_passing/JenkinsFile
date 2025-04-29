@@ -1,0 +1,35 @@
+pipeline {
+    agent {
+        label 'agent-01'
+          }
+
+    parameters {
+        string(name: 'GIT_BRANCH', defaultValue: 'xyz', description: 'Branch to build')
+        string(name: 'TEST_CASE_ID', defaultValue: 'value1', description: 'Test case name')
+        string(name: 'TEST_CASE_NAME', defaultValue: 'value2', description: 'Test case ID')
+    }
+
+    stages {
+		stage('Git Pull') {
+            steps {
+                script {
+                    git branch: "${params.GIT_BRANCH}", credentialsId: 'gitlab-jenkins-123', url: 'https://gitlab.xyz.one/xyz/xyz'
+                }
+            }
+        }
+        stage('Input param') {
+            steps {
+                script {
+                    env.SITE_NAME = params.SITE_NAME
+                    env.TESTCASE_NAME = params.TESTCASE_NAME
+
+					bat '''
+                    cd xyz\\abc\\def
+                    python param_copy.py
+                    '''
+                }
+            }
+        }
+
+    }
+}

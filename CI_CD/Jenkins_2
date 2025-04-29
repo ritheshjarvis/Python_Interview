@@ -1,0 +1,53 @@
+pipeline {
+    agent {
+        label "xyz"
+    }
+    parameters {
+        choice(name: 'TestAgents', choices: ['agent-12', 'agent-02'], description: 'Pick the agent to execute features')
+        choice(name: 'MAIN_ENV', choices: ['XYZ','ABC'],description: 'Pick')
+        choice(name: 'MAIN_SITE', choices: ['1234','1235','1236'],description: 'Pick the the site to execute the features')
+        string(name: 'ENVIRONMENTS', description: 'Please add the list of comma seperated environements or All to run the Tests', defaultValue: 'All')
+        string(name: 'SOFTWARE_VERSION', description: 'Please add the SOFTWARE_VERSION version to run the Tests', defaultValue: '3')
+    }
+    environment {
+        MAIN_ENV = "${params.MAIN_ENV}"
+        MAIN_SITE = "${params.MAIN_SITE}"
+        VAULT_TOKEN = credentials('Vault_access_token')
+        VAULT_URL = 'https://vault.xyz.com:8300'
+        VAULT_SECRET_PATH = 'secret/xyz/Automation/'
+    }
+    stages {
+        stage('Setup Virtual Environment') {
+            steps {
+                bat """
+                python.exe -m venv .venv
+                .venv\\Scripts\\activate
+                """
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'artifactory_service_user', usernameVariable: 'ARTIFACTORY_USERNAME', passwordVariable: 'ARTIFACTORY_PSW')]) {
+                    bat "pip install --index-url https://xyz.abc.one:443/api/pypi/pip-virtual/simple --extra-index-url https://$ARTIFACTORY_USERNAME:$xyz@artifactory.abc.xyz.one:443/api/pypi/systest-pypi-dev/simple --trusted-host xyz.abc.one:443 --requirement ./requirements.txt"
+                }
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                bat "behave --no-capture --no-logcapture -f behave_html_formatter:HTMLFormatter -o reports/abc_report.html"
+            }
+           post {
+                always {
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'reports',
+                        reportFiles: '*.html',
+                        reportName: 'Report'
+                    ])
+                }
+           }
+        }
+    }
+}

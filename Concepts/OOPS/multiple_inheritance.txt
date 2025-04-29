@@ -216,4 +216,5 @@ MRO (Method Resolution Order)	Python uses C3 Linearization (Depth-first, Left-to
 Overriding Conflicts	Multiple parent classes may have the same method name, causing conflicts.
 Best Practices	Prefer composition over multiple inheritance when possible. Use super() properly.
 Conclusion
-Multiple inheritance is powerful but should be used carefully due to potential issues like method conflicts, MRO complexity, and the diamond problem. Understanding MRO and using super() properly helps avoid pitfalls.
+Multiple inheritance is powerful but should be used carefully due to potential issues like method conflicts, MRO complexity, and the diamond problem.
+Understanding MRO and using super() properly helps avoid pitfalls.

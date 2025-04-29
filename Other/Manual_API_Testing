@@ -1,0 +1,167 @@
+✅ 1. Positive Test Cases (Valid Inputs)
+Ensure the API works as expected when given valid inputs.
+
+Status Code 200: Test that the API returns 200 OK for valid requests.
+
+Valid Response Body: The response has correct structure and expected data.
+
+Data Created Successfully (POST): Valid data creates a resource.
+
+Data Updated Successfully (PUT/PATCH): Updates reflect correctly.
+
+Data Deleted (DELETE): Resource is deleted and cannot be accessed again.
+
+Response Time: API should respond within an acceptable time (e.g., <2s).
+
+❌ 2. Negative Test Cases (Invalid Inputs)
+Ensure the API handles errors gracefully and securely.
+
+Missing Required Fields: Should return 400 Bad Request.
+
+Invalid Field Values (e.g., string instead of integer): Should fail with validation message.
+
+Unauthorized Access: Accessing without token should return 401.
+
+Forbidden Access: Accessing with invalid roles/permissions should return 403.
+
+Invalid Endpoint URL: Should return 404 Not Found.
+
+Rate Limit Exceeded: Should return 429 Too Many Requests.
+
+🔄 3. Boundary Test Cases
+Test the limits of the input fields or data.
+
+Minimum and Maximum Values: Input edge values (e.g., 0, 9999).
+
+String Length Limits: Test very short or long strings.
+
+Empty String / Null Inputs: Should handle gracefully.
+
+Large Payloads: Send large request bodies to check handling.
+
+🔒 4. Security Test Cases
+Ensure data and access are protected.
+
+JWT Token Required: Should reject requests without tokens.
+
+SQL Injection: Send SQL injection patterns to see if the API is vulnerable.
+
+Cross-site scripting (XSS): Send XSS payloads.
+
+Access Control: Ensure users can only access their own data.
+
+🧪 5. Functional Test Cases
+Ensure the API logic matches the business requirements.
+
+Correct Business Logic: E.g., total price is calculated with tax.
+
+Dependent APIs: E.g., creating a user automatically logs an event.
+
+Workflow Validations: Sequence of APIs behave correctly together.
+
+🔄 6. Method Test Cases
+Validate the behavior of all HTTP methods.
+
+GET: Retrieve data.
+
+POST: Create new data.
+
+PUT/PATCH: Update existing data.
+
+DELETE: Remove data.
+
+Test for correct status codes, effects, and idempotency (especially for PUT & DELETE).
+
+📄 7. Schema & Contract Validation
+Ensure the API response matches the agreed schema.
+
+Field Names & Types: Should match the documentation.
+
+Required vs Optional Fields: Validate presence of all required fields.
+
+Data Format Validation: e.g., date format, email format.
+
+📦 8. Header Test Cases
+Ensure headers are correctly handled.
+
+Content-Type Validation: API should accept and return correct content-type (application/json).
+
+Custom Headers: API should respond correctly to custom headers (like API keys).
+
+Accept Headers: Client can request specific formats.
+
+Would you like a sample template to structure your API test cases (e.g., in Excel or JSON format)?
+
+
+
+
+
+
+
+You said:
+Im planning to test it in the Postman.
+How to test Responce body schema validation
+ChatGPT said:
+Perfect! Postman has built-in support for response body schema validation using JavaScript-based tests. You can write a schema validation test in the “Tests” tab of Postman for each request.
+
+✅ Step-by-Step: Validate Response Body Schema in Postman
+1. Make your API request
+Use the “Body” tab (for POST/PUT), set headers if needed, and hit Send.
+
+2. Go to the "Tests" tab of your request
+3. Use the tv4 or ajv validator
+Postman includes the tv4 and ajv JSON schema validators.
+
+Here’s an example using Ajv (recommended – stricter and modern):
+
+📄 Example Schema Validation Test
+Suppose your response looks like this:
+
+json
+Copy
+Edit
+{
+  "id": 101,
+  "name": "Rithesh",
+  "email": "rithesh@example.com",
+  "is_active": true
+}
+Then in the Tests tab, write this:
+
+javascript
+Copy
+Edit
+pm.test("Response schema is valid", function () {
+    const schema = {
+        "type": "object",
+        "properties": {
+            "id": { "type": "number" },
+            "name": { "type": "string" },
+            "email": { "type": "string", "format": "email" },
+            "is_active": { "type": "boolean" }
+        },
+        "required": ["id", "name", "email", "is_active"]
+    };
+
+    pm.response.to.have.jsonSchema(schema);
+});
+This will validate:
+
+The data type of each field
+
+All required fields are present
+
+🔍 Tips:
+To test an array of objects, set "type": "array" and use items:
+
+javascript
+Copy
+Edit
+"type": "array",
+"items": {
+  "type": "object",
+  "properties": {
+    ...
+  }
+}
+Postman gives clear schema validation errors in the Test Results if validation fails.
