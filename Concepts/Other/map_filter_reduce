@@ -1,0 +1,46 @@
+
+1. map()
+Purpose: Applies a function to every item in an iterable (like a list).
+
+Syntax: map(function, iterable)
+
+Returns: A map object (which can be converted to a list).
+
+Example:
+numbers = [1, 2, 3, 4]
+squared = list(map(lambda x: x ** 2, numbers))
+print(squared)  # Output: [1, 4, 9, 16]
+2. filter()
+Purpose: Filters elements from an iterable for which the function returns True.
+
+Syntax: filter(function, iterable)
+
+Returns: A filter object (which can be converted to a list).
+
+Example:
+numbers = [1, 2, 3, 4, 5]
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+print(evens)  # Output: [2, 4]
+3. reduce()
+Purpose: Applies a rolling computation to sequential pairs of values in an iterable.
+
+Syntax: reduce(function, iterable)
+
+Returns: A single value.
+
+Note: You need to import it from the functools module.
+
+Example:
+from functools import reduce
+
+numbers = [1, 2, 3, 4]
+product = reduce(lambda x, y: x * y, numbers)
+print(product)  # Output: 24
+
+
+Real-World Analogy:
+map() is like giving everyone in a list of students a grade bump.
+
+filter() is like picking only the students who passed.
+
+reduce() is like summing all the marks to get the class total.

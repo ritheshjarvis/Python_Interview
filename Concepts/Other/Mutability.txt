@@ -1,0 +1,107 @@
+🧠 What does "immutable" mean?
+It means:
+
+Once an int object is created, its value cannot be changed in-place.
+
+If you "change" it, Python creates a new object in memory
+
+🔍 Let’s prove it with a practical example using memory address (id()):
+python
+
+x = 10
+print("Before change:", x, "Memory ID:", id(x))
+
+x += 1  # Equivalent to x = x + 1
+print("After change:", x, "Memory ID:", id(x))
+🧾 Output:
+yaml
+
+Before change: 10 Memory ID: 9789312
+After change: 11 Memory ID: 9789344
+
+🔁 The ID changed, which means a new int object was created — Python did not modify the old one.
+
+💡 Real-world analogy:
+Think of an int as a sealed container with a number. If you want a new number, Python doesn’t "edit" the container — it gives you a new container with the new value.
+
+---------------- EPAM Interview Questions --------
+
+item1 = 3.0
+item2 = 3.0
+
+print(id(item1))
+print(id(item2))
+
+---------------- EPAM interview Questions ---------
+
+✅ Summary:
+
+Type	Mutable?	Example
+int	    ❌ Immutable	Any update creates a new object
+list	✅ Mutable	Elements can be changed in-place
+str	    ❌ Immutable	Works like int in behavior
+tuple	❌ Immutable	Cannot change contents
+
+First — what is Mutability and Immutability?
+
+Term	Meaning
+Mutable	Can change the object after it’s created.
+Immutable	Cannot change the object after it’s created.
+🛠 Practical example 1: Strings are Immutable
+python
+
+# Create a string
+name = "Rithesh"
+
+# Try to change one character
+# name[0] = "S"   # ❌ This will give an error!
+
+# Instead, you must create a NEW string
+new_name = "S" + name[1:]
+print(new_name)  # Output: Sithesh
+✅ Explanation:
+
+You cannot change "Rithesh" directly.
+
+You have to create a new string like "Sithesh".
+
+Strings are immutable.
+
+🛠 Practical example 2: Tuples are Immutable
+python
+
+# Create a tuple
+my_tuple = (1, 2, 3)
+
+# Try to change an element
+# my_tuple[0] = 10  # ❌ Error: 'tuple' object does not support item assignment
+
+# You need to create a new tuple
+new_tuple = (10,) + my_tuple[1:]
+print(new_tuple)  # Output: (10, 2, 3)
+✅ Explanation:
+
+Tuples are fixed — once created, you cannot modify elements inside.
+
+If you want a change, make a new tuple.
+
+🛠 Now contrast with a Mutable example: (Lists are Mutable!)
+python
+
+# Create a list
+my_list = [1, 2, 3]
+
+# Change an element
+my_list[0] = 10
+print(my_list)  # Output: [10, 2, 3]
+✅ Explanation:
+
+Lists allow in-place modification.
+
+No need to create a new list.
+
+🧠 Real-world Analogy:
+
+Object	Analogy
+String / Tuple / int   -->	Printed book — once printed, you cannot change the content.
+List	               -->  Whiteboard — you can erase and rewrite as much as you want.

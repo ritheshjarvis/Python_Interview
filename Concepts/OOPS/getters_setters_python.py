@@ -1,6 +1,7 @@
 """
 Getters and Setters in Python
-Getters and setters are methods used to access (get) and modify (set) the values of private attributes in a class. In Python, they help encapsulate data and apply validation logic.
+Getters and setters are methods used to access (get) and modify (set) the values of private attributes in a class.
+In Python, they help encapsulate data and apply validation logic.
 
 Why Use Getters and Setters?
 ✅ Encapsulation → Prevents direct access to sensitive data.

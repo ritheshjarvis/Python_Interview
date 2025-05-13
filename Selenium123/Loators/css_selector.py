@@ -14,3 +14,4 @@ notification_page.click_antimalware_event()
 print("----- Fetching Start ------------->")
 notification_details = notification_page.fetch_antimalware_event_details()
 print(notification_details)
+

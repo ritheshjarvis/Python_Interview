@@ -1,0 +1,84 @@
+🔹 What is Method Overloading?
+Method Overloading means defining multiple methods with the same name but different parameters (type, number, or both) within the same class.
+
+🧠 In languages like Java, method overloading is directly supported.
+❌ In Python, method overloading is not natively supported the way it is in Java or C++. But it can be mimicked.
+
+✅ Method Overloading in Java (for comparison)
+java
+Copy
+Edit
+class Example {
+    void show() {
+        System.out.println("No arguments");
+    }
+
+    void show(int a) {
+        System.out.println("Integer: " + a);
+    }
+
+    void show(String b) {
+        System.out.println("String: " + b);
+    }
+}
+Java handles which show() method to call based on parameters.
+
+✅ Method Overloading in Python (Mimicked)
+Python does not support method overloading natively, but you can achieve similar behavior using:
+
+1. Default Arguments
+python
+Copy
+Edit
+class Example:
+    def show(self, a=None):
+        if a is None:
+            print("No argument")
+        else:
+            print("Argument:", a)
+
+e = Example()
+e.show()       # Output: No argument
+e.show(10)     # Output: Argument: 10
+2. Variable-Length Arguments (*args, **kwargs)
+python
+Copy
+Edit
+class Example:
+    def show(self, *args):
+        if len(args) == 0:
+            print("No arguments")
+        else:
+            print("Arguments:", args)
+
+e = Example()
+e.show()              # No arguments
+e.show(1)             # Arguments: (1,)
+e.show(1, 2, 3)       # Arguments: (1, 2, 3)
+3. Using @singledispatch Decorator (from functools)
+python
+Copy
+Edit
+from functools import singledispatchmethod
+
+class Example:
+    @singledispatchmethod
+    def show(self, arg):
+        print("Default:", arg)
+
+    @show.register
+    def _(self, arg: int):
+        print("Integer:", arg)
+
+    @show.register
+    def _(self, arg: str):
+        print("String:", arg)
+
+e = Example()
+e.show(10)      # Integer: 10
+e.show("Hi")    # String: Hi
+e.show(5.6)     # Default: 5.6
+🔸 Summary
+Language	Method Overloading	How
+Java	✅ Native support	Method name + signature
+Python	❌ No native support	Use default args, *args, or @singledispatch

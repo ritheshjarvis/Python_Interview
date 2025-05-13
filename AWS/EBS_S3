@@ -1,0 +1,53 @@
+
+🧱 EBS vs S3 — At a Glance
+Feature	EBS (Elastic Block Store)	S3 (Simple Storage Service)
+Type	Block storage	Object storage
+Use case	Attached to EC2 like a virtual hard disk	Store files, backups, media, logs, etc.
+Access	Only via attached EC2 instances	Accessible over the web or via API
+Data format	Raw blocks (like a hard drive)	Files (objects) with metadata
+Durability	High (within an AZ)	Extremely high (11 9s across regions)
+Pricing	Pay for provisioned size	Pay for actual storage used
+Persistence	Tied to EC2 lifecycle (unless configured otherwise)	Independent of compute resources
+Latency	Very low (disk-like)	Higher (network-based)
+Examples	Store OS, databases	Store images, PDFs, logs, backups
+
+🧠 Real-world Analogy
+EBS: Like a USB hard drive attached to a computer. It stores OS, applications, and databases. Can’t access it without plugging it in.
+
+S3: Like Google Drive or Dropbox. You can store and access files anytime from anywhere.
+
+🔧 Example Use Cases
+📀 EBS Example
+You launch an EC2 instance (virtual machine) and attach a 100GB EBS volume.
+
+You install a database (like MySQL) on it.
+
+Data is read/written to disk — just like on your local laptop hard drive.
+
+# Linux EC2 with EBS
+sudo mkfs -t ext4 /dev/xvdf
+sudo mount /dev/xvdf /data
+🪣 S3 Example
+You store images from a website in an S3 bucket called mywebsite-images.
+
+You can upload/download them using boto3 or AWS CLI.
+
+You don’t need EC2 — S3 is serverless.
+
+
+# Uploading to S3 using Python
+import boto3
+s3 = boto3.client('s3')
+s3.upload_file('photo.jpg', 'mywebsite-images', 'uploads/photo.jpg')
+🧾 When to Use What?
+If you need...	Use
+A disk for EC2	EBS
+To store documents, logs, media	S3
+A fast block-level storage for databases	EBS
+A scalable, serverless file store	S3
+
+Let me know if you want help with:
+
+Setting up S3 or EBS via Python
+
+Understanding EFS (Elastic File System) and how it fits in!
