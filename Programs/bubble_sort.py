@@ -26,3 +26,17 @@ for _i in range(0, len(arr)):
     print(arr)
 
 print(arr)
+
+# Interview
+
+input_list = [1, 5, 3, 8, 9]
+
+for outer in range(len(input_list)):
+    print("-------outer---" + str(outer))
+    for inner in range(len(input_list) - 1 - outer):
+        print(">>inner" + str(inner))
+        if input_list[inner] > input_list[inner+1]:
+            input_list[inner], input_list[inner+1] = input_list[inner+1], input_list[inner]
+
+
+print(input_list)

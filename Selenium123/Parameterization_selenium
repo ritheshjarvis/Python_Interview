@@ -1,0 +1,63 @@
+Parameterization in Selenium refers to the process of running the same test case multiple times with different sets of data. This helps in validating how your application behaves under various input conditions — it's a core concept in Data-Driven Testing.
+
+🔹 Why Parameterize?
+Instead of hardcoding values in your test scripts, parameterization allows you to:
+
+Increase test coverage by testing multiple input combinations.
+
+Improve reusability of test scripts.
+
+Simplify maintenance, as test data is separated from the logic.
+
+🔹 Common Ways to Parameterize in Selenium
+✅ 1. Using TestNG @DataProvider (Java + Selenium)
+java
+Copy
+Edit
+@DataProvider(name = "loginData")
+public Object[][] getData() {
+    return new Object[][] {
+        {"user1", "pass1"},
+        {"user2", "pass2"}
+    };
+}
+
+@Test(dataProvider = "loginData")
+public void loginTest(String username, String password) {
+    driver.findElement(By.id("username")).sendKeys(username);
+    driver.findElement(By.id("password")).sendKeys(password);
+}
+✅ 2. Using External Files (Excel, CSV, JSON, XML)
+Read test data from files using libraries like:
+
+Apache POI (for Excel)
+
+OpenCSV (for CSV)
+
+Jackson or Gson (for JSON)
+
+✅ 3. Using Cucumber Scenario Outline (BDD)
+gherkin
+Copy
+Edit
+Scenario Outline: Login with different credentials
+  Given I open the login page
+  When I enter "<username>" and "<password>"
+  Then I should see the dashboard
+
+Examples:
+  | username | password |
+  | user1    | pass1    |
+  | user2    | pass2    |
+✅ 4. Using Python + Pytest (if you're using Selenium in Python)
+python
+Copy
+Edit
+import pytest
+
+@pytest.mark.parametrize("username,password", [("user1", "pass1"), ("user2", "pass2")])
+def test_login(username, password):
+    driver.find_element(By.ID, "username").send_keys(username)
+    driver.find_element(By.ID, "password").send_keys(password)
+🔹 Real-World Analogy:
+Think of parameterization like a coffee machine. Instead of making only one type of coffee, it can take different inputs (sugar, milk, size, etc.) and make different variants — same machine, multiple outputs.

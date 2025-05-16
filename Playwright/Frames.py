@@ -1,3 +1,33 @@
+'''
+Ex:
+<iframe src="SingleFrame.html" id="singleframe" name="SingleFrame" style="float: left;height: 300px;width: 600px">
+
+iframe attributes:
+id
+name
+src (URL)
+
+🔍 What are Frames (or iframes) from JavaScript and Browser Perspective?
+From both JavaScript and the browser's point of view, a frame (especially an iframe) is essentially a nested browsing context.
+It's like embedding a separate webpage (with its own DOM, CSS, and JavaScript environment) within another webpage.
+'''
+
+from playwright.sync_api import sync_playwright, Frame, Page
+
+playwright = sync_playwright().start()
+browser = playwright.chromium.launch(headless=False, executable_path=r'C:\Program Files\Google\Chrome\Application\chrome.exe')
+page: Page = browser.new_page()
+
+page.goto('https://demo.automationtesting.in/Frames.html')
+page.frame_locator('#singleframe').locator('input[type=text]').fill("Hie")
+
+frame: Frame = page.frame(name='SingleFrame')
+page.frames
+print(frame.url)
+print(frame.name)
+print(frame)
+frame.locator('input[type=text]').fill("Hie")
+# ------------------------------- Playwright ends here ------------------------
 import re
 import time
 

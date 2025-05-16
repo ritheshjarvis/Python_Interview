@@ -4,10 +4,11 @@ Ex:
 iframe attributes:
 id
 name
-src
+src (URL)
 
 🔍 What are Frames (or iframes) from JavaScript and Browser Perspective?
-From both JavaScript and the browser's point of view, a frame (especially an iframe) is essentially a nested browsing context. It's like embedding a separate webpage (with its own DOM, CSS, and JavaScript environment) within another webpage.
+From both JavaScript and the browser's point of view, a frame (especially an iframe) is essentially a nested browsing context.
+It's like embedding a separate webpage (with its own DOM, CSS, and JavaScript environment) within another webpage.
 
 🧱 Browser Point of View
 The <iframe> tag creates an independent window inside the current page.
@@ -209,3 +210,46 @@ driver.quit()
 Method 1: Uses the id of the iframe directly.
 
 Method 2: Finds the <iframe> using part of its src URL with XPath, then passes the WebElement to switch_to.frame().
+
+---------------------------------------------
+
+    def frame(self, frame_reference: Union[str, int, WebElement]) -> None:
+        """Switches focus to the specified frame, by index, name, or
+        webelement.
+
+        :Args:
+         - frame_reference: The name of the window to switch to, an integer representing the index,
+                            or a webelement that is an (i)frame to switch to.
+
+        :Usage:
+            ::
+
+                driver.switch_to.frame('frame_name')
+                driver.switch_to.frame(1)
+                driver.switch_to.frame(driver.find_elements(By.TAG_NAME, "iframe")[0])
+        """
+        if isinstance(frame_reference, str):
+            try:
+                frame_reference = self._driver.find_element(By.ID, frame_reference)
+            except NoSuchElementException:
+                try:
+                    frame_reference = self._driver.find_element(By.NAME, frame_reference)
+                except NoSuchElementException as exc:
+                    raise NoSuchFrameException(frame_reference) from exc
+
+        self._driver.execute(Command.SWITCH_TO_FRAME, {"id": frame_reference})
+
+---------------------------------------------
+
+1. Find the count of <iframe> and <frame> Elements
+Use find_elements() to get all frame-like elements:
+
+python
+Copy
+Edit
+frames = driver.find_elements(By.TAG_NAME, "iframe")
+frames += driver.find_elements(By.TAG_NAME, "frame")
+
+print(f"Total number of frames/iframes: {len(frames)}")
+for index, frame in enumerate(frames):
+    print(f"Frame {index} - ID: {frame.get_attribute('id')}, Name: {frame.get_attribute('name')}")

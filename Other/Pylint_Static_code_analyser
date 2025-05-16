@@ -1,0 +1,109 @@
+🧪 What is Pylint in Python?
+Pylint is a static code analysis tool used to check Python code for:
+
+Coding standard violations (PEP8)
+
+Programming errors (e.g., undefined variables)
+
+Code smells (e.g., duplicate code, too many arguments)
+
+Code quality (e.g., unused imports, unreachable code)
+
+Custom naming conventions
+
+It helps ensure your code is clean, readable, maintainable, and less error-prone before running it.
+
+🔄 Basic Usage:
+bash
+Copy
+Edit
+pylint your_script.py
+You'll get a score out of 10, with warnings, errors, and suggestions.
+
+🧩 Different Stages in Pylint (Pipeline Breakdown)
+When you run pylint, it internally goes through several analysis stages:
+
+1. Tokenization
+Converts the source code into tokens (identifiers, keywords, literals).
+
+It checks for basic syntax issues early (e.g., missing colons or indentation).
+
+2. Parsing / AST Generation
+Builds an Abstract Syntax Tree (AST) from the tokens.
+
+This tree represents the structure of the code (classes, functions, etc.).
+
+3. AST Analysis (Checker Stage)
+Core analysis happens here:
+
+Imports: Are there unused or missing imports?
+
+Variables: Are variables defined before use?
+
+Functions: Are docstrings missing? Too many arguments?
+
+Code Smells: Duplicate code, high complexity, etc.
+
+4. Symbol Table Building
+Tracks all identifiers (variables, functions, classes) and their scope.
+
+Useful for detecting undefined variables, shadowing, or unused variables.
+
+5. Type Inference
+Tries to guess the type of variables (even though Python is dynamically typed).
+
+This helps catch mismatched operations (e.g., string + int).
+
+6. Custom Plugin & Configuration Stage
+You can enable/disable specific checkers or load custom plugins.
+
+Pylint reads from .pylintrc or pyproject.toml config files.
+
+7. Reporting
+Collects all the findings and prints them.
+
+You get message codes like:
+
+C: Convention (PEP8)
+
+R: Refactor recommendation
+
+W: Warning
+
+E: Error
+
+F: Fatal error
+
+Example output:
+
+vbnet
+Copy
+Edit
+C:  1, 0: Missing module docstring (missing-module-docstring)
+W: 10, 4: Unused variable 'x' (unused-variable)
+🛠 Common Pylint Commands
+Disable a rule:
+
+bash
+Copy
+Edit
+pylint your_file.py --disable=missing-docstring
+Generate a default config file:
+
+bash
+Copy
+Edit
+pylint --generate-rcfile > .pylintrc
+Use with pre-commit hooks or CI pipelines to enforce quality before merge.
+
+📌 Summary Table
+Stage	Purpose
+Tokenization	Break source into tokens
+AST Generation	Build structured tree of code
+Checker Analysis	Apply rules for bugs, smells, PEP8
+Symbol Table	Track variable/function/class scopes
+Type Inference	Guess types to find mismatches
+Plugin/Config	Apply custom rules or disable checkers
+Reporting	Show results with scores & messages
+
+Let me know if you'd like help setting up Pylint or customizing rules for your project.

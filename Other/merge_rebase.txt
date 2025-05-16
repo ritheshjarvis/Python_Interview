@@ -1,0 +1,77 @@
+🔁 git merge – Preserve History
+How it works:
+
+Combines histories of two branches.
+
+Creates a new merge commit.
+
+Keeps the original commit history.
+
+Example:
+
+bash
+Copy
+Edit
+git checkout main
+git merge feature-branch
+Pros:
+
+Preserves context of how the feature was developed.
+
+Easier for teams to trace when and how branches merged.
+
+Cons:
+
+History can get messy with many merge commits, especially in busy teams.
+
+🔄 git rebase – Linear History
+How it works:
+
+Reapplies commits from your branch on top of another branch (e.g., main).
+
+Rewrites history by creating new commit hashes.
+
+Example:
+
+bash
+Copy
+Edit
+git checkout feature-branch
+git rebase main
+Pros:
+
+Creates a clean, linear history — great for reviewing or bisecting.
+
+Avoids unnecessary merge commits.
+
+Cons:
+
+Rewrites commit history — dangerous if used on shared/public branches.
+
+Can cause conflicts across multiple commits.
+
+✅ When to Use What?
+Situation	Use merge	Use rebase
+Collaboration with others	✔ Safe and conflict-minimizing	❌ Avoid rebasing shared branches
+Keeping history clean (linear)	❌ Can get cluttered with merge commits	✔ Ideal for a tidy commit history
+Pulling latest changes from main	✔ Safe but adds merge commits	✔ Good for local, clean history
+Interactive review/reordering	❌ Not flexible	✔ git rebase -i is very powerful
+
+🚨 Pro Tip
+Use rebase before merging to keep feature branch history clean:
+
+bash
+Copy
+Edit
+git checkout feature
+git fetch origin
+git rebase origin/main
+# resolve any conflicts
+git checkout main
+git merge feature  # now it's a fast-forward
+NEVER rebase public/shared branches unless you're sure everyone knows what you're doing — it changes commit history and can break collaboration.
+
+🧠 Summary
+Command	Changes History?	Adds Merge Commit?	History Style	Safe for Shared Branches?
+git merge	No	Yes	Tree-like	Yes
+git rebase	Yes	No	Linear	No (unless you're careful)
