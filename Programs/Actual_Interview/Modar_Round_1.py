@@ -27,3 +27,4 @@ def return_prime_numbers(limit: int) -> list[int]:
     return prime_number_list
 
 print(return_prime_numbers(19))
+

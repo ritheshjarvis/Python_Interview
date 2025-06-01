@@ -38,3 +38,26 @@ current_window = driver.current_window_handle
 print(current_window)
 
 time.sleep(30)
+
+# ------------------- Practice -----------------
+
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('xyz.com')
+driver.implicitly_wait(30)
+
+current_window= driver.current_window_handle
+
+# click operation
+
+for window in driver.window_handles:
+    if window != current_window:
+        if driver.title == 'xyz':
+            driver.switch_to.window(window)
+
+driver.switch_to.default_content()
+
+
+
+

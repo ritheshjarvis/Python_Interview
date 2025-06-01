@@ -1,0 +1,18 @@
+import boto3
+
+# Using client (low-level API)
+ec2_client = boto3.client('ec2')
+
+# Using resource (higher-level object API)
+ec2_resource = boto3.resource('ec2')
+
+def launch_instance():
+    instance = ec2_resource.create_instances(
+        ImageId='ami-0abcdef1234567890',  # Replace with your AMI ID
+        InstanceType='t2.micro',
+        MinCount=1,
+        MaxCount=1,
+        KeyName='your-key-pair-name',     # Replace with your key pair name
+        SecurityGroups=['your-security-group']  # Optional
+    )[0]
+    print(f"Launched instance ID: {instance.id}")

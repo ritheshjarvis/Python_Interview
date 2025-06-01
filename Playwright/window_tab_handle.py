@@ -17,6 +17,7 @@ with sync_playwright() as p:
     print("Before Clicking ------")
     original_page = page
 
+
     # Click and wait for new tab to open
     with context.expect_page() as new_tab_info:
         button.click()

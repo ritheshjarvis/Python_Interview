@@ -11,7 +11,6 @@ page = browser.new_page()
 page.goto(url='https://practice.expandtesting.com/shadowdom#google_vignette')
 
 
-
 element = page.locator('#my-btn')
 print(element.count())
 element.first.click()

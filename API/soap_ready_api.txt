@@ -1,0 +1,8 @@
+✅ Summary:
+ReadyAPI is an automated API testing platform that helps teams create, manage, and execute functional, security,
+and performance tests for web services, including REST, SOAP, and GraphQL APIs
+Use SoapUI if you just need basic REST/SOAP API functional testing and you're okay with limited features.
+
+Use ReadyAPI if you're working on enterprise-grade projects and need data-driven, load, security, and mock testing,
+plus CI/CD integration.
+

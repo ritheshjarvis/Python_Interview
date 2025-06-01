@@ -1,34 +1,14 @@
-from playwright.sync_api import sync_playwright
-import time
 
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False, executable_path="C:\Program Files\Google\Chrome\Application\chrome.exe")
-    context = browser.new_context()
-    page = context.new_page()
+# cve_list = ['CVE-2020-111111', 'CVE-2020-111112', 'CVE-2020-111113', 'CVE-2020-111114']
+cve_list = ['CVE-2020-111114', 'CVE-2020-111113', 'CVE-2020-111114']
+jira_description = ['CVE-2020-111113', 'CVE-2020-111114']
 
-    page.goto("https://www.hyrtutorials.com/p/window-handles-practice.html")
-    page.set_viewport_size({"width": 1280, "height": 800})
-
-    # Scroll the element into view
-    button = page.wait_for_selector("#newTabBtn", timeout=30000)
-    button.scroll_into_view_if_needed()
-    time.sleep(3)
-
-    print("Before Clicking ------")
-    original_page = page
-
-    # Click and wait for new tab to open
-    with context.expect_page() as new_tab_info:
-        button.click()
-
-    new_tab = new_tab_info.value
-    new_tab.wait_for_load_state()
-
-    print("After Switching ------")
-    print(f"New tab URL: {new_tab.url}")
-
-    original_page.bring_to_front()
+#
+# for cve in cve_list:
+#     print(cve)
 
 
-    time.sleep(30)
-    browser.close()
+print(list(set(cve_list)-set(jira_description)))
+
+print(set(cve_list) == set(jira_description))
+print(set(cve_list) == set(jira_description))

@@ -1,0 +1,105 @@
+ What is PEP 8?
+PEP 8 stands for Python Enhancement Proposal 8. It is the official style guide for writing clean, readable, and consistent Python code.
+
+📘 Created by: Guido van Rossum and others
+📄 Purpose: To improve code consistency across the Python community
+
+🎯 Why Follow PEP 8?
+✅ Makes your code easier to read and maintain
+
+✅ Promotes consistency across projects and teams
+
+✅ Helps avoid common pitfalls and formatting issues
+
+🧾 Key PEP 8 Style Guide Standards:
+1. Indentation
+Use 4 spaces per indentation level (no tabs).
+
+python
+Copy
+Edit
+def my_function():
+    if True:
+        print("Hello")
+2. Maximum Line Length
+Limit lines to 79 characters (72 for docstrings/comments).
+
+python
+Copy
+Edit
+# Good:
+message = "This is a short message."
+
+# Bad:
+message = "This is a very long message that goes way beyond seventy-nine characters."
+3. Blank Lines
+Use blank lines to separate:
+
+Functions and classes
+
+Logical sections inside functions
+
+4. Imports
+One import per line, grouped in the following order:
+
+Standard libraries
+
+Third-party packages
+
+Local application imports
+
+python
+Copy
+Edit
+import os
+import sys
+
+import requests
+
+from myproject import utils
+5. Naming Conventions
+Element	Style	Example
+Class Names	CapWords (PascalCase)	MyClass
+Function Names	lower_case_with_underscores	get_user_name()
+Variable Names	lower_case_with_underscores	user_id
+Constants	ALL_CAPS	MAX_RETRIES
+Module Names	lowercase or lower_case_with_underscores	utils.py
+Private members	Prefix with _	_hidden_method()
+
+6. Whitespace Rules
+Avoid unnecessary spaces:
+
+python
+Copy
+Edit
+# Good:
+x = 1
+
+# Bad:
+x             = 1
+7. Docstrings
+Use triple quotes """ for documenting modules, classes, and methods.
+
+python
+Copy
+Edit
+def add(a, b):
+    """Return the sum of a and b."""
+    return a + b
+🛠 Tools to Check PEP 8 Compliance:
+flake8 – Linting
+
+black – Auto-formatting
+
+pylint – Code analysis
+
+isort – Import sorting
+
+🚀 Summary
+PEP 8 is like a coding style rulebook for Python. Following it makes your code:
+
+Cleaner
+
+More maintainable
+
+Easier for others to understand

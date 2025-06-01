@@ -1,0 +1,103 @@
+🧱 What is PageFactory Design Pattern in UI Automation?
+PageFactory is an extension of the Page Object Model (POM) design pattern used mainly in Java + Selenium automation. It provides a more efficient and readable way to initialize and use web elements by using annotations like @FindBy.
+
+What is the Page Factory Design Pattern?
+The Page Factory is an enhanced implementation of the Page Object Model (POM) pattern that helps you to initialize web elements easily and efficiently in Selenium tests.
+
+Key Idea:
+Instead of manually locating elements inside your test code or page classes, Page Factory uses annotations to declare elements and initializes them at runtime — making your code cleaner and more maintainable.
+
+How does Page Factory work?
+You define a class representing a page.
+
+You declare web elements with annotations like @FindBy.
+
+Page Factory initializes these elements when you create an instance of the class.
+
+This reduces boilerplate and improves readability.
+
+Benefits of Page Factory:
+Lazy Initialization: Elements are only found when used.
+
+Cleaner Code: No need to write driver.findElement() repeatedly.
+
+Reusability: Page classes can be reused in multiple tests.
+
+Easier Maintenance: Update locators in one place.
+
+🧠 Think of PageFactory as a smart way to automatically initialize web elements instead of manually finding them using driver.findElement() every time.
+
+⚙️ How PageFactory Works
+It uses annotations to define locators, and the elements are initialized automatically using:
+
+java
+Copy
+Edit
+PageFactory.initElements(driver, this);
+🔍 Example in Java:
+🔹 LoginPage.java
+java
+Copy
+Edit
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class LoginPage {
+    WebDriver driver;
+
+    // Element declarations
+    @FindBy(id = "username")
+    WebElement username;
+
+    @FindBy(id = "password")
+    WebElement password;
+
+    @FindBy(id = "loginBtn")
+    WebElement loginButton;
+
+    // Constructor
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this); // initializes all @FindBy elements
+    }
+
+    public void login(String user, String pass) {
+        username.sendKeys(user);
+        password.sendKeys(pass);
+        loginButton.click();
+    }
+}
+🔹 LoginTest.java
+java
+Copy
+Edit
+LoginPage loginPage = new LoginPage(driver);
+loginPage.login("admin", "password123");
+📌 Key Features
+Feature	Description
+@FindBy	Used to declare element locators
+PageFactory.initElements()	Initializes all elements declared with @FindBy
+Improves Readability	No need to write findElement() repeatedly
+Lazy Initialization	Elements are not found until used (optional with AjaxElementLocatorFactory)
+
+🆚 POM vs PageFactory
+Feature	POM (Classic)	PageFactory
+Locator Declaration	Manual (findElement)	Using @FindBy annotation
+Initialization	Done in constructor or manually	Automatically via initElements
+Readability	Less concise	More concise and readable
+
+📝 Notes
+PageFactory is specific to Selenium with Java (or supported languages).
+
+It's optional—you can use POM without PageFactory.
+
+It can be combined with AjaxElementLocatorFactory for better handling of dynamic elements.
+
+✅ Summary
+PageFactory is a Selenium-supported design pattern that simplifies POM.
+
+Uses annotations to define elements.
+
+Promotes cleaner, more maintainable code.

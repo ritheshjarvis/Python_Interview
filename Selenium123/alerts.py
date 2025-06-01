@@ -17,7 +17,17 @@ alert.text
 Retrieves the text displayed in the alert.
 
 alert.send_keys("text")
-Sends keystrokes to a prompt alert."""
+Sends keystrokes to a prompt alert.
+
+Optional: Wait for an Alert
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+WebDriverWait(driver, 10).until(EC.alert_is_present())
+alert = driver.switch_to.alert
+alert.accept()
+
+"""
 
 driver = webdriver.Chrome()
 
@@ -43,5 +53,28 @@ alert = driver.switch_to.alert
 
 alert.accept()
 
+# ---------------------------------------------------------
 
-time.sleep(3)
+import time
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+
+driver = webdriver.Chrome()
+driver.implicitly_wait(30)
+
+driver.get("https://testpages.herokuapp.com/styled/alerts/alert-test.html")
+driver.find_element(By.CSS_SELECTOR, "#alertexamples").click()
+
+wait = WebDriverWait(driver, 30)
+wait.until(expected_conditions.alert_is_present())
+
+alert = driver.switch_to.alert
+print("Alert text:", alert.text)
+time.sleep(2)
+print("After timeout")
+alert.accept()
+
+time.sleep(10)

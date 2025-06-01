@@ -9,7 +9,7 @@ page.goto('https://www.techlistic.com/2017/02/automate-demo-web-table-with-selen
 table_element = page.locator('#customers')
 expect(table_element, 'Table Element is not loaded').to_be_visible()
 
-header_elements = table_element.locator('tbody tr th span').first
+header_elements = table_element.locator('tbody tr th span').all()
 expect(header_elements, 'Header Elements are not visible').to_be_visible()
 
 header_texts = table_element.locator('tbody tr th span').all_inner_texts()

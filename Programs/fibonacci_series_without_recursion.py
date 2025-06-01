@@ -1,3 +1,26 @@
+# Fibonacci series
+# The Fibonacci sequence is the series of numbers where each number is the sum of the two preceding numbers.
+# For example, 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610
+
+def fibbonacci_series(limit: int) -> list[int]:
+    sequence = [0, 1]
+
+    if limit <= 0:
+        return []
+    elif limit == 1:
+        return [sequence[0]]
+    elif limit == 2:
+        return sequence
+    else:
+        for item in range(0, limit - 2):
+            sequence.append(sequence[-1] + sequence[-2])
+        return sequence
+
+
+if __name__ == "__main__":
+    series = 5
+    # print(fibbonacci_series(series))
+#------------------------------------------------------------------
 # Fibonacci Series without Recursion
 
 def fibonacci_series(n):

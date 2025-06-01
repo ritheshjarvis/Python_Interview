@@ -21,6 +21,7 @@ Example:
 numbers = [1, 2, 3, 4, 5]
 evens = list(filter(lambda x: x % 2 == 0, numbers))
 print(evens)  # Output: [2, 4]
+
 3. reduce()
 Purpose: Applies a rolling computation to sequential pairs of values in an iterable.
 
@@ -44,3 +45,74 @@ map() is like giving everyone in a list of students a grade bump.
 filter() is like picking only the students who passed.
 
 reduce() is like summing all the marks to get the class total.
+
+# ----------------- reduce function ---------------------
+
+🔧 What is reduce()?
+reduce() is a function from Python’s functools module.
+
+It applies a function cumulatively to the items of a list (or any iterable), from left to right, so as to reduce the iterable to a single value.
+
+🔍 Syntax:
+from functools import reduce
+
+reduce(function, iterable)
+function: A function that takes two arguments.
+
+iterable: A list, tuple, etc.
+
+🧠 Simple Example: Sum of a List
+
+from functools import reduce
+
+numbers = [1, 2, 3, 4, 5]
+
+result = reduce(lambda x, y: x + y, numbers)
+print("Sum:", result)
+🔄 How It Works Internally:
+Step 1: 1 + 2 = 3
+
+Step 2: 3 + 3 = 6
+
+Step 3: 6 + 4 = 10
+
+Step 4: 10 + 5 = 15
+
+✅ Final Output:
+
+Sum: 15
+📦 Another Example: Find the Maximum
+python
+Copy
+Edit
+from functools import reduce
+
+numbers = [10, 25, 3, 88, 15]
+
+max_num = reduce(lambda x, y: x if x > y else y, numbers)
+print("Max number:", max_num)
+✅ Output:
+
+Max number: 88
+⚠️ When to Use reduce()?
+Use it when you need to combine all values into one (e.g., sum, product, max, min).
+
+If you're just transforming elements, use map().
+
+If you're filtering items, use filter().
+
+# ---------------- reduce function ---------------------
+
+from functools import reduce
+
+def factorial(n: int) -> int:
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers.")
+    elif n == 0 or n == 1:
+        return 1
+    else:
+        return reduce(lambda x, y: x * y, range(1, n + 1))
+
+# Example usage
+num = 5
+print(f"Factorial of {num} is {factorial(num)}")

@@ -14,9 +14,7 @@ Custom naming conventions
 It helps ensure your code is clean, readable, maintainable, and less error-prone before running it.
 
 🔄 Basic Usage:
-bash
-Copy
-Edit
+
 pylint your_script.py
 You'll get a score out of 10, with warnings, errors, and suggestions.
 

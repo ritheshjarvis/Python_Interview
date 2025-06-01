@@ -1,0 +1,28 @@
+As i progress upwards / Moving upwards  -> in my career ladder, I understand effective communication plays a major role,
+I knew myself that I'm not so good at it, I consider this as my weakness, i constantly working on it.
+Communication skills improvement
+
+2 Delegation of work
+
+3. Too much perfection or Going into technical stack deep-dive into optimizations that aren’t always necessary for the immediate goal.
+   I should impove on balancing timelines which leads to business impact and techincal depth
+
+
+1. Perfectionism / Overchecking Work
+“One weakness I’ve recognized is that I tend to double-check my work multiple times, especially in automation scripts,
+which sometimes slows me down. I’m learning to trust my process more and use peer reviews and proper test coverage to balance quality and speed.”
+
+2. Public Speaking / Presenting
+“I used to struggle with presenting technical topics in meetings, especially to larger groups.
+To improve, I’ve started volunteering to present smaller demos during team calls and have received positive feedback.
+I’m still working on becoming more confident, but I’ve seen steady progress.”
+
+3. Delegating Work
+“I sometimes take on too much myself instead of delegating tasks.
+I’ve been working on trusting my teammates more and collaborating better, especially during sprints.
+I’ve seen that it actually speeds things up and builds better team synergy.”
+
+4. Getting Too Deep into Technical Details
+“At times, I get too focused on technical perfection and deep-dive into optimizations that aren’t always necessary for the immediate goal.
+I’m now learning to better balance between business impact and technical depth.”
+

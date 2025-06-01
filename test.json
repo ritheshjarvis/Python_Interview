@@ -1,0 +1,11 @@
+{
+  "name": "Rithesh",
+  "age": 30,
+  "isMarried": true,
+  "children": ["Aryan", "Diya"],
+  "address": {
+    "city": "Mangalore",
+    "state": "Karnataka",
+    "pinCode": 575001
+  }
+}

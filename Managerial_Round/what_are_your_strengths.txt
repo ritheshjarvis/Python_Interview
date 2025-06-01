@@ -1,0 +1,30 @@
+💬 Sample Answer (for a Tech Role like Automation/Backend)
+Self taught learner and Learning new things
+Problem solver
+Taking ownership
+
+“One of my key strengths is problem-solving. I enjoy breaking down complex issues and finding efficient, long-term solutions.
+For example, in my current role, I identified redundant test scripts and refactored them into reusable components, which reduced test maintenance effort by 40%.”
+
+Another strength is that I’m highly self-motivated and always eager to learn.
+I taught myself Playwright and integrated it into our test framework when we needed faster cross-browser support—this
+added significant value to the team without needing external help.”
+
+I also have strong communication and collaboration skills,
+which help me work effectively across teams, especially when aligning automation efforts with business goals.”
+
+🧠 Some Great Strengths You Can Mention (Choose 2–3):
+🔧 Technical
+Strong in Python/Java/Selenium/Test Automation
+Quick learner of new tools or frameworks
+Debugging and troubleshooting skills
+Writing clean, reusable code
+CI/CD experience
+
+🤝 Functional/Soft Skills
+Problem-solving
+Ownership and accountability
+Clear communication
+Adaptability
+Collaboration across teams
+Understanding of business logic (not just code)

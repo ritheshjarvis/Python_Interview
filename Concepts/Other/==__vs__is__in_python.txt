@@ -1,0 +1,56 @@
+In Python, is and == are both comparison operators, but they are used for different purposes:
+
+🔁 == (Equality Operator)
+Purpose: Checks if the values of two variables are equal.
+
+Compares: The contents of the objects.
+
+Example:
+
+python
+Copy
+Edit
+a = [1, 2, 3]
+b = [1, 2, 3]
+print(a == b)  # True — because both lists have the same contents
+🔗 is (Identity Operator)
+Purpose: Checks if two variables refer to the same object in memory.
+
+Compares: The identity (memory address) of the objects.
+
+Example:
+
+python
+Copy
+Edit
+a = [1, 2, 3]
+b = [1, 2, 3]
+print(a is b)  # False — because they are different objects in memory
+Real-world analogy:
+Imagine two ₹500 notes:
+
+== checks if the value is the same (₹500).
+
+is checks if they are the exact same note (same serial number, same physical paper).
+
+Special Case: Small integers and strings
+Python internally reuses some immutable objects like small integers and short strings:
+
+python
+Copy
+Edit
+x = 100
+y = 100
+print(x is y)   # True — small integers are cached
+
+a = "hello"
+b = "hello"
+print(a is b)   # True — strings may be interned
+
+x = 1000
+y = 1000
+print(x is y)   # Might be False — not always cached
+Summary
+Operator	Checks	Compares	Returns
+==	Equality	Values/Contents	True/False
+is	Identity	Memory Address	True/False

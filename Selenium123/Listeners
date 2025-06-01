@@ -1,0 +1,482 @@
+In Selenium with Java, listeners are used to listen to specific events that occur during the test execution lifecycle and perform custom actions when those events occur. Selenium itself and testing frameworks like TestNG or JUnit provide various types of listeners.
+
+✅ Types of Listeners in Selenium (Java)
+1. WebDriver Event Listeners (Selenium Provided)
+These are part of the org.openqa.selenium.support.events package and are used to listen to WebDriver events like click, navigation, findElement, etc.
+
+🔧 Interface:
+WebDriverListener (Selenium 4+)
+
+WebDriverEventListener (Deprecated in Selenium 4)
+
+💡 Commonly Tracked Events:
+beforeClick, afterClick
+
+beforeNavigateTo, afterNavigateTo
+
+beforeFindElement, afterFindElement
+
+onException, etc.
+
+✅ Example:
+java
+Copy
+Edit
+import org.openqa.selenium.support.events.WebDriverListener;
+
+public class MyEventListener implements WebDriverListener {
+    @Override
+    public void beforeClick(WebElement element) {
+        System.out.println("About to click: " + element);
+    }
+
+    @Override
+    public void onError(Throwable error) {
+        System.out.println("Error occurred: " + error.getMessage());
+    }
+}
+2. TestNG Listeners (Test Lifecycle Listeners)
+TestNG provides a wide range of listeners to track different parts of the test lifecycle.
+
+🔧 Common TestNG Listener Interfaces:
+Interface	Purpose
+ISuiteListener	Executes at the beginning and end of the suite.
+ITestListener	Listens to test case events (start, pass, fail, skip).
+IClassListener	Invoked before and after a class is executed.
+IInvokedMethodListener	Invoked before and after each method (test/configuration).
+IExecutionListener	Tracks the entire test run (start and finish).
+
+✅ Example:
+java
+Copy
+Edit
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+public class TestNGListener implements ITestListener {
+    @Override
+    public void onTestStart(ITestResult result) {
+        System.out.println("Test Started: " + result.getName());
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+        System.out.println("Test Failed: " + result.getName());
+    }
+}
+Then, attach the listener using:
+
+@Listeners(TestNGListener.class) annotation on your test class
+
+OR specify it in testng.xml
+
+3. JUnit Listeners (If you use JUnit)
+JUnit (especially JUnit 5) provides:
+
+TestWatcher – Monitors test execution results.
+
+TestExecutionListener – For advanced lifecycle event tracking.
+
+🧩 When Should You Use Listeners?
+Use Case	Listener Type
+Log WebDriver actions	WebDriverListener
+Take screenshots on failure	ITestListener
+Generate custom reports	ITestListener or ISuiteListener
+Initialize resources	IExecutionListener
+Monitor method-level details	IInvokedMethodListener
+
+Let me know if you want a full working example with WebDriverEventListener + TestNGListener integrated together in a test class.
+
+
+
+
+
+
+
+You said:
+ Give me this example by just writting a simple test
+public class TestNGListener implements ITestListener {
+    @Override
+    public void onTestStart(ITestResult result) {
+        System.out.println("Test Started: " + result.getName());
+    }
+
+
+ChatGPT said:
+Sure Rithesh! Here's a complete working example with a simple test class using a custom TestNG Listener that implements ITestListener.
+
+✅ Listener Class: TestNGListener.java
+java
+Copy
+Edit
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+
+public class TestNGListener implements ITestListener {
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        System.out.println("Test Started: " + result.getName());
+    }
+
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        System.out.println("Test Passed: " + result.getName());
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+        System.out.println("Test Failed: " + result.getName());
+    }
+}
+✅ Test Class: SampleTest.java
+java
+Copy
+Edit
+import org.testng.Assert;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+@Listeners(TestNGListener.class)
+public class SampleTest {
+
+    @Test
+    public void testSuccess() {
+        System.out.println("Running testSuccess");
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void testFailure() {
+        System.out.println("Running testFailure");
+        Assert.assertTrue(false, "Intentional Failure");
+    }
+}
+🛠️ How to Run:
+You can run this test using:
+
+A TestNG-compatible IDE like IntelliJ IDEA or Eclipse
+
+Or using a testng.xml configuration file.
+
+📦 Output Example:
+yaml
+Copy
+Edit
+Test Started: testSuccess
+Running testSuccess
+Test Passed: testSuccess
+Test Started: testFailure
+Running testFailure
+Test Failed: testFailure
+Let me know if you'd like to integrate Selenium WebDriver or add screenshots on failure in the listener!
+
+
+
+
+
+
+
+You said:
+yes
+
+
+ChatGPT said:
+Great! Here's a complete working example that includes:
+
+✅ A custom ITestListener
+✅ A simple Selenium WebDriver test
+✅ Takes a screenshot on test failure
+
+📁 Folder Structure (for clarity)
+bash
+Copy
+Edit
+/project-root
+│
+├── TestNGListener.java
+├── SampleTest.java
+├── screenshots/            # (Automatically created to save screenshots)
+✅ 1. TestNGListener.java – Listener with Screenshot Logic
+java
+Copy
+Edit
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class TestNGListener implements ITestListener {
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        System.out.println("Test Started: " + result.getName());
+    }
+
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        System.out.println("Test Passed: " + result.getName());
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+        System.out.println("Test Failed: " + result.getName());
+
+        Object testClass = result.getInstance();
+        WebDriver driver = ((SampleTest) testClass).getDriver();
+
+        if (driver != null) {
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File src = ts.getScreenshotAs(OutputType.FILE);
+            String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            File dest = new File("screenshots/" + result.getName() + "_" + timestamp + ".png");
+
+            try {
+                Files.createDirectories(dest.getParentFile().toPath());
+                Files.copy(src.toPath(), dest.toPath());
+                System.out.println("Screenshot saved: " + dest.getAbsolutePath());
+            } catch (IOException e) {
+                System.out.println("Failed to save screenshot: " + e.getMessage());
+            }
+        }
+    }
+}
+✅ 2. SampleTest.java – Selenium Test Class with Listener
+java
+Copy
+Edit
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.*;
+
+@Listeners(TestNGListener.class)
+public class SampleTest {
+
+    private WebDriver driver;
+
+    @BeforeMethod
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver"); // ⬅️ Update this path
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    public void testPass() {
+        driver.get("https://www.google.com");
+        Assert.assertTrue(driver.getTitle().contains("Google"));
+    }
+
+    @Test
+    public void testFail() {
+        driver.get("https://www.google.com");
+        Assert.assertTrue(driver.getTitle().contains("Yahoo")); // Intentional failure
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+}
+✅ Output on Failure
+When testFail() fails, the listener captures a screenshot and prints:
+
+yaml
+Copy
+Edit
+Test Failed: testFail
+Screenshot saved: /your-project/screenshots/testFail_20250528_143200.png
+
+
+# ------------------------------ Python -----------------------------------------------
+
+In Python Selenium, there’s no built-in ITestListener like in Java + TestNG, but you can achieve the same functionality using:
+
+unittest (Python's built-in test framework) with hooks like setUp, tearDown, etc.
+
+Custom wrappers or decorators
+
+OR a full-featured test framework like pytest with hooks and plugins
+
+✅ Here’s a Simple Example: Python Listener-like Logic with Screenshot on Failure using unittest
+📁 Folder structure:
+bash
+Copy
+Edit
+/project-root
+│
+├── test_listener.py
+├── screenshots/    # Will be created dynamically
+✅ test_listener.py
+python
+Copy
+Edit
+import unittest
+from selenium import webdriver
+import os
+import time
+
+class TestListener(unittest.TestCase):
+
+    def setUp(self):
+        # Setup Chrome driver
+        self.driver = webdriver.Chrome(executable_path='/path/to/chromedriver')  # Update path
+        self.driver.maximize_window()
+
+    def tearDown(self):
+        # If test failed, take a screenshot
+        for method, error in self._outcome.errors:
+            if error:
+                test_method_name = self._testMethodName
+                timestamp = time.strftime("%Y%m%d-%H%M%S")
+                screenshot_name = f"screenshots/{test_method_name}_{timestamp}.png"
+                os.makedirs("screenshots", exist_ok=True)
+                self.driver.save_screenshot(screenshot_name)
+                print(f"📸 Screenshot saved to {screenshot_name}")
+        self.driver.quit()
+
+    def test_pass(self):
+        self.driver.get("https://www.google.com")
+        self.assertIn("Google", self.driver.title)
+
+    def test_fail(self):
+        self.driver.get("https://www.google.com")
+        self.assertIn("Yahoo", self.driver.title)  # This will fail
+
+if __name__ == "__main__":
+    unittest.main()
+✅ Output when test fails:
+bash
+Copy
+Edit
+F📸 Screenshot saved to screenshots/test_fail_20250528-144410.png
+✅ Notes
+The tearDown() method uses self._outcome.errors to detect failures.
+
+This mimics ITestListener.onTestFailure() in Java TestNG.
+
+You can expand this to log test start/end events, test status, etc.
+
+🧪 Want to use pytest?
+If you're using pytest, I can show you how to do this using conftest.py and pytest_runtest_makereport() hook for cleaner listener-style handling.
+
+Let me know which framework you'd prefer: unittest or pytest.
+
+
+
+
+
+
+
+You said:
+in Python Behave?
+
+
+ChatGPT said:
+In Python Behave, there's no built-in "listener" like TestNG's ITestListener, but Behave provides hooks via the environment.py file that allow you to implement listener-like behavior, such as:
+
+Capturing test start/end
+
+Taking screenshots on failure
+
+Logging scenarios and steps
+
+✅ Behave Hooks Overview (Listener Equivalent)
+Hook Name	Triggered When
+before_all(context)	Before all tests
+before_scenario(context, scenario)	Before each scenario
+after_scenario(context, scenario)	After each scenario
+before_step(context, step)	Before each step
+after_step(context, step)	After each step
+
+✅ Goal: Take Screenshot on Failure in Behave
+Here's how to simulate listener behavior in Behave and take screenshots for failed steps.
+
+📁 Project Structure Example
+bash
+Copy
+Edit
+features/
+│
+├── environment.py         # ← Hooks go here
+├── example.feature
+├── steps/
+│   └── example_steps.py
+└── screenshots/           # ← Will be created automatically
+✅ environment.py
+python
+Copy
+Edit
+import os
+import time
+
+def before_all(context):
+    os.makedirs("screenshots", exist_ok=True)
+
+def after_step(context, step):
+    if step.status == "failed" and hasattr(context, "driver"):
+        timestamp = time.strftime("%Y%m%d-%H%M%S")
+        filename = f"screenshots/{step.name.replace(' ', '_')}_{timestamp}.png"
+        context.driver.save_screenshot(filename)
+        print(f"📸 Screenshot taken: {filename}")
+✅ Example Step Definition (steps/example_steps.py)
+python
+Copy
+Edit
+from behave import given, when, then
+from selenium import webdriver
+
+@given("I launch Chrome browser")
+def step_launch_browser(context):
+    context.driver = webdriver.Chrome(executable_path="/path/to/chromedriver")  # ← Update this
+    context.driver.maximize_window()
+
+@when("I open Google homepage")
+def step_open_google(context):
+    context.driver.get("https://www.google.com")
+
+@then("Page title should be Yahoo")
+def step_title_fail(context):
+    assert "Yahoo" in context.driver.title  # Intentional failure
+
+@then("Close the browser")
+def step_close_browser(context):
+    context.driver.quit()
+✅ Example Feature File (example.feature)
+gherkin
+Copy
+Edit
+Feature: Google Search Test
+
+  Scenario: Failing title check
+    Given I launch Chrome browser
+    When I open Google homepage
+    Then Page title should be Yahoo
+    Then Close the browser
+✅ Output on Failure
+yaml
+Copy
+Edit
+Failing step: Page title should be Yahoo
+📸 Screenshot taken: screenshots/Page_title_should_be_Yahoo_20250528-145300.png
+Let me know if you want to:
+
+Add custom logging/reporting
+
+Upload screenshots to Allure reports
+
+Or integrate this into a Behave + Page Object Model structure.

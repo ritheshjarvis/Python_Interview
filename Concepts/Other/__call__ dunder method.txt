@@ -1,0 +1,42 @@
+Difference between __init__ vs __call__ ?
+
+🧠 __init__ → Object Initialization
+It's a constructor method.
+
+Called when you create an object (instance) of a class.
+
+Initializes attributes, like setting up the object’s state.
+
+python
+Copy
+Edit
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+
+obj = MyClass(10)  # __init__ is called here
+⚡ __call__ → Callable Instances
+It makes an instance behave like a function.
+
+Called when you use the object like a function, e.g., obj()
+
+python
+Copy
+Edit
+class MyClass:
+    def __call__(self):
+        print("Called like a function!")
+
+obj = MyClass()
+obj()  # __call__ is invoked here
+✅ In the Playwright Example:
+python
+Copy
+Edit
+expect = Expect()      # __init__ is called here
+expect(page)           # __call__ is called here
+Expect() → calls __init__ to create the instance.
+
+expect(page) → calls __call__ because the instance is now being used like a function.
+
+So no, they are completely different methods with different purposes.

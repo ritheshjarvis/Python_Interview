@@ -1,0 +1,119 @@
+🚀 Specific Techniques (Tailor to Selenium or Playwright)
+1. Reduce Unnecessary Waits - Avoid Thread.sleep(); use explicit waits (WebDriverWait)
+2. Run Tests in Parallel
+3. Headless Mode
+4. Instead of UI layer -> Test Layer
+5. Optimize Locators
+   - ID(Faster) >> CSS-Selector >> XPAth
+
+1. Reduce Unnecessary Waits
+Selenium: Avoid Thread.sleep(); use explicit waits (WebDriverWait) instead of implicit waits to target specific conditions.
+
+Playwright: Use auto-waiting mechanisms and waitForSelector() for targeted waiting.
+
+2. Run Tests in Parallel
+Selenium: Use TestNG or JUnit with parallel execution, or tools like Selenium Grid, Docker, or cloud providers (e.g., BrowserStack, SauceLabs).
+
+Playwright: Built-in support for parallel test execution using its test runner (npx playwright test --workers=<n>).
+
+3. Headless Mode
+Run tests in headless mode (faster than UI mode).
+
+Selenium: ChromeOptions().addArguments("--headless")
+
+Playwright: launch({ headless: true })
+
+4. Disable Animations/Network Overhead
+Block unnecessary resources (images, fonts, ads) to improve speed.
+
+Playwright: Use route() to block resources.
+
+Selenium: Set browser profiles to disable CSS, images (more complex).
+
+5. Smart Test Design
+Minimize UI dependency for validations—use APIs where possible.
+
+Group smoke vs. regression tests and prioritize critical flows.
+
+6. Retry Logic on Flaky Tests
+Use retry logic only where needed, to avoid test reruns for transient failures.
+
+Playwright: Built-in retries in config (retries: 2)
+
+Selenium: Implement with TestNG listeners or JUnit rules.
+
+7. Optimize Locators
+Use stable, unique selectors (like data-testid) instead of brittle XPath.
+
+In Playwright, prefer getByRole, getByTestId for reliability.
+
+## ----------------------------------------------------------------
+
+✅ Step-by-Step: Retry Logic in TestNG (Selenium)
+🧩 1. Create a Retry Analyzer Class
+This class implements IRetryAnalyzer and contains the logic to retry a test on failure.
+
+java
+Copy
+Edit
+import org.testng.IRetryAnalyzer;
+import org.testng.ITestResult;
+
+public class RetryAnalyzer implements IRetryAnalyzer {
+    private int retryCount = 0;
+    private static final int maxRetryCount = 2; // Number of retry attempts
+
+    @Override
+    public boolean retry(ITestResult result) {
+        if (retryCount < maxRetryCount) {
+            retryCount++;
+            return true; // Retry the test
+        }
+        return false;
+    }
+}
+🧪 2. Attach Retry Analyzer to Your Test
+You can apply it directly using the @Test annotation.
+
+java
+Copy
+Edit
+import org.testng.annotations.Test;
+
+public class SampleTest {
+
+    @Test(retryAnalyzer = RetryAnalyzer.class)
+    public void testLogin() {
+        // your selenium test code
+    }
+}
+✅ 3. (Optional) Attach Retry Analyzer Globally
+If you want to apply it to all tests, use a TestNG listener.
+
+java
+Copy
+Edit
+import org.testng.IAnnotationTransformer;
+import org.testng.annotations.ITestAnnotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+public class AnnotationTransformer implements IAnnotationTransformer {
+    @Override
+    public void transform(ITestAnnotation annotation, Class testClass,
+                          Constructor testConstructor, Method testMethod) {
+        annotation.setRetryAnalyzer(RetryAnalyzer.class);
+    }
+}
+Then register this listener in your testng.xml or use @Listeners annotation.
+
+In testng.xml:
+
+xml
+Copy
+Edit
+<listeners>
+    <listener class-name="your.package.AnnotationTransformer" />
+</listeners>
+✅ Output Example
+If a test fails the first time, it will be retried up to maxRetryCount times before being marked as failed.
