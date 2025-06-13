@@ -1,3 +1,5 @@
+# Main trick -> In inner loop -> range starts from outer+1
+
 # From the given array -> Find a Pair of elements whose value is 6
 
 input = [2, 6, 3, 3, 4]

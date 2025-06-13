@@ -1,0 +1,94 @@
+Structured estimation methodologies are systematic, repeatable approaches used to estimate the effort, time, and resources required for completing a task or project. In the context of software development or automation, these methods provide a logical and consistent framework to reduce guesswork and improve planning accuracy.
+
+✅ Key Characteristics of Structured Estimation Methodologies
+Based on proven techniques and best practices.
+
+Helps in breaking down work logically.
+
+Ensures team alignment and better resource forecasting.
+
+Reduces bias and over-/underestimation.
+
+Often incorporates historical data and complexity analysis.
+
+🧩 Common Structured Estimation Methodologies
+1. Work Breakdown Structure (WBS)
+Break the overall task into smaller, manageable components (features → stories → sub-tasks).
+
+Estimate each part individually.
+
+Sum up the estimates for total effort.
+
+📌 Used when: You want granular visibility and modular estimation.
+
+2. Three-Point Estimation
+Consider 3 scenarios:
+
+Optimistic (O) – Best case
+
+Pessimistic (P) – Worst case
+
+Most Likely (M) – Realistic scenario
+
+Use formula:
+
+ini
+Copy
+Edit
+Estimate = (O + 4M + P) / 6
+📌 Used when: There is uncertainty in the scope and variability in complexity.
+
+3. Function Point Analysis (FPA)
+Measure the size of a system based on its functional components (inputs, outputs, files, user interactions, etc.).
+
+Assign weights and calculate complexity to derive effort.
+
+📌 Used when: Estimating large enterprise applications with a structured approach.
+
+4. Planning Poker / Agile Estimation
+Team-based relative estimation using story points.
+
+Each member gives a point (e.g., 1, 2, 3, 5, 8...), and discussion leads to consensus.
+
+📌 Used when: Estimating stories in Agile projects where team discussion helps in improving accuracy.
+
+5. Analogy-Based Estimation
+Compare the current task with a similar past task.
+
+Adjust for complexity and environment changes.
+
+📌 Used when: Historical data is available from similar projects.
+
+6. Delphi Technique
+Multiple experts independently provide estimates.
+
+Consolidated via rounds of anonymous feedback until consensus is reached.
+
+📌 Used when: Expert judgment is needed with unbiased collaboration.
+
+💡 Real-world Example in Test Automation
+Let’s say you need to automate 100 test cases. Here's how structured estimation can help:
+
+Use WBS to break them by module.
+
+Apply Three-Point Estimation per test case:
+
+Optimistic: 1 hr
+
+Most likely: 2 hrs
+
+Pessimistic: 4 hrs
+⇒ (1+4×2+4)/6 = 2.17 hrs per case
+
+Add buffer using structured rules (like 15% for review, 10% for flaky tests).
+
+Use historical data to validate your final estimate.
+
+📌 Summary
+Method	Best For	Accuracy
+WBS	Detailed, modular estimation	✅✅✅
+Three-Point	Handling uncertainty	✅✅✅
+Function Point	Enterprise-level systems	✅✅✅
+Planning Poker	Agile teams, relative estimation	✅✅
+Analogy-Based	Leveraging past projects	✅✅
+Delphi Technique	Expert-driven environments	✅✅✅

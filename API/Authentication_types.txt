@@ -1,0 +1,67 @@
+1. Basic Authentication
+How it works: Client sends username and password in the Authorization header (base64 encoded).
+
+Header:
+    Authorization: Basic base64(username:password)
+
+Use Case: Simple internal systems or quick testing.
+
+Security Note: Only safe over HTTPS; otherwise credentials can be sniffed.
+
+# ----------------------------------------------------------------------------------------
+
+2. Bearer Token (Token-Based Authentication)
+How it works: A token (usually a JWT or opaque token or OAuth token) is sent in the Authorization header.
+
+Header format:
+    Authorization: Bearer <token>
+
+Pros: More secure than Basic Auth; tokens can expire and be revoked.
+      Most common for APIs needing secure user sessions or stateless auth.
+
+Cons: Requires token management.
+
+# ------------------------------------------------------------------------------------------
+
+3. API Key
+How it works: A static key is passed in a query parameter or header.
+
+Example (Header):
+    x-api-key: your-api-key
+
+Example (Query):
+
+    https://api.example.com/data?api_key=your-api-key
+
+Use Case: Simple identification; good for public APIs, less secure than Bearer tokens.
+Pros: Easy to implement and use.
+Cons: Less secure; keys can be leaked if not handled properly.
+
+# ------------------------------------------------------------------------------------------
+
+4. OAuth 2.0
+How it works: A token is obtained through an authorization flow and then used in Bearer Token form.
+
+Flows:
+Use Case: Apps that integrate with services like Google, GitHub, etc.
+Pros: Highly secure and flexible.
+Cons: More complex to implement.
+
+# ------------------------------------------------------------------------------------------
+
+5. JWT (JSON Web Token)
+How it works: Encoded JSON object (header, payload, signature) is used as a Bearer token.
+
+Header:
+    Authorization: Bearer <JWT>
+
+Use Case: Stateless auth, where all user info is stored in the token.
+
+# ------------------------------------------------------------------------------------------
+
+7. HMAC (Hash-based Message Authentication Code)
+How it works: Signature created using a secret and parts of the request.
+
+Use Case: Secure APIs, e.g., AWS Signature V4.
+
+Example: Used where high integrity and tamper protection is needed.

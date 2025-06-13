@@ -1,3 +1,5 @@
+# Main trick -> In inner loop -> range starts from outer+1
+
 # Program -> Two find the pair whose difference is least
 
 input_list = [10, 1, 11, 38, 67]

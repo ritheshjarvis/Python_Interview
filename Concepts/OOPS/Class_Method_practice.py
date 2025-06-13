@@ -49,3 +49,22 @@ s1 = Student.student_with_email(3)
 
 print(s1.name)
 print(s1.count)
+
+# --------------- example 2 --------------
+
+class Year:
+
+    def __init__(self, date, month, year):
+        self.date = date
+        self.month = month
+        self.year = year
+
+    @classmethod
+    def cls_method(cls, input_):
+        date, month, year = input_.split('-')
+        return cls(date, month, year)
+
+# y1 = Year(3, 11, 2021)
+
+y2 = Year.cls_method('03-06-2015')
+print(y2.month)

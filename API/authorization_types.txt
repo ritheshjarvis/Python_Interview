@@ -1,0 +1,61 @@
+🔑 1. Role-Based Access Control (RBAC)
+How it works: Users are assigned roles (e.g., admin, user, editor), and roles determine what actions are permitted.
+
+Example:
+    admin can read/write/delete
+    user can only read
+
+Use Case: Most common in enterprise and SaaS apps.
+Implementation: Roles are often stored in JWT claims or in a user database.
+
+# --------------------------------------------------------------------------------------
+
+🔗 2. Policy-Based Access Control (PBAC) / Custom Logic
+How it works: Policies are written in code or using policy engines (like OPA or Casbin).
+
+Example:
+"if resource.owner == user.id and resource.status == 'active'" → allow
+
+Use Case: Applications needing complex access rules.
+
+# ---------------------------------------------------------------------------------------
+
+🔒 3. Attribute-Based Access Control (ABAC) --> time and environment
+How it works: Access decisions are based on attributes (time, environment, user, resource).
+
+Example:
+A user can access data only during business hours.
+A doctor can access patients only from their hospital.
+
+Use Case: Fine-grained access control.
+
+More complex, but highly flexible.
+
+# ---------------------------------------------------------------------------------------
+
+🌐 4.1 - OAuth 2.0 Scopes
+How it works: Tokens issued through OAuth contain scopes, which define the allowed operations.
+
+Example:
+read:user, write:repo
+
+Use Case: Delegated access (e.g., third-party apps accessing GitHub on your behalf).
+
+                or
+
+🔐 4.2 - JSON Web Token (JWT) Claims-Based Authorization
+How it works: JWTs can carry claims like roles, permissions, or user attributes, which are used to authorize actions.
+Example: A JWT might include "role": "admin" and the API checks this before allowing access.
+Pros: Stateless and efficient.
+Cons: Requires careful validation and token management.
+
+# ---------------------------------------------------------------------------------------
+
+📁 5. Resource-Based Authorization
+How it works: Access is based on the ownership of specific resources.
+
+Example:
+
+Users can only access their own documents: /users/{user_id}/docs
+
+Enforced at the application layer, often using path or query parameter checks.

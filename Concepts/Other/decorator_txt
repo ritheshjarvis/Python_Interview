@@ -1,15 +1,16 @@
-In Python, a decorator is a special function that modifies the behavior of another function (or method) without changing its actual code.
-
-🔧 Real-world analogy:
-Imagine you have a gift (function) and you wrap it in fancy paper (decorator) to enhance its appearance—the gift is the same, but it looks better.
+In Python, a decorator is a special function that modifies the behavior of another function (or method)
+without changing its actual code.
 
 🧠 Basic Concept
 A decorator is a function that takes another function as input and returns a new function.
 
+🔧 Real-world analogy:
+Imagine you have a gift (function) and you wrap it in fancy paper (decorator) to enhance its appearance—the
+gift is the same, but it looks better.
+
+# ------------------------------------------------------
 ✅ Example without @ syntax:
-python
-Copy
-Edit
+
 def decorator_function(original_function):
     def wrapper_function():
         print("Before the function runs")
@@ -17,24 +18,22 @@ def decorator_function(original_function):
         print("After the function runs")
     return wrapper_function
 
+
 def say_hello():
     print("Hello!")
 
 # Manually decorating
 decorated = decorator_function(say_hello)
 decorated()
-Output:
 
-pgsql
-Copy
-Edit
+Output:
 Before the function runs
 Hello!
 After the function runs
+# ------------------------------------------------------
+
 ✅ Using @ decorator syntax (cleaner):
-python
-Copy
-Edit
+
 def decorator_function(original_function):
     def wrapper_function():
         print("Before the function runs")
@@ -47,21 +46,18 @@ def say_hello():
     print("Hello!")
 
 say_hello()
+
+# ------------------------------------------------------
+
 🎯 When are decorators useful?
-Logging
-
-Authentication
-
-Access control
-
-Timing function execution
-
-Caching results
+ - Logging
+ - Authentication
+ - Access control
+ - Timing function execution
+ - Caching results
 
 🧪 Example: Logging Decorator
-python
-Copy
-Edit
+
 def log_decorator(func):
     def wrapper(*args, **kwargs):
         print(f"Calling {func.__name__} with {args} and {kwargs}")

@@ -1,0 +1,61 @@
+In Jenkins, global parameters (also called global environment variables or global properties) are key-value pairs that can be defined once and accessed by any Jenkins job (pipeline or freestyle). These parameters are helpful for sharing common values across multiple jobs—such as environment names, credentials IDs, repository URLs, or API keys.
+
+🔧 Where to Set Global Parameters
+You can define global parameters in Jenkins via:
+
+1. Global Properties (in Jenkins Configuration)
+Go to: Manage Jenkins → Configure System
+
+Scroll to the Global properties section
+
+Check the box for Environment variables
+
+Add key-value pairs here
+
+These values will be available to all jobs as environment variables.
+
+2. Global Shared Libraries (for Pipelines)
+You can define global variables and functions in shared libraries and reference them in multiple pipelines.
+
+3. Global Tool Configurations
+Tools like JDK, Maven, Gradle, Git, etc., are configured globally and used by jobs via tool names.
+
+🧪 Usage in Pipeline
+If you define a global environment variable like:
+
+text
+Copy
+Edit
+API_BASE_URL = https://api.example.com
+You can access it in your Jenkinsfile:
+
+groovy
+Copy
+Edit
+pipeline {
+    agent any
+    environment {
+        BASE_URL = "${API_BASE_URL}"
+    }
+    stages {
+        stage('Print URL') {
+            steps {
+                echo "Base URL is: ${BASE_URL}"
+            }
+        }
+    }
+}
+Or directly (if it's already in the system environment):
+
+groovy
+Copy
+Edit
+echo "Global Base URL is: ${env.API_BASE_URL}"
+✅ Benefits of Global Parameters
+Centralized configuration
+
+Consistency across jobs
+
+Easy to update shared values
+
+Better maintainability

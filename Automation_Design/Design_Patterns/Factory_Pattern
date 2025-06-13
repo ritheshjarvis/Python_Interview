@@ -1,0 +1,168 @@
+✅ What is the Factory Pattern?
+The Factory Pattern is a creational design pattern that provides an interface to create objects in a superclass, but allows subclasses to alter the type of objects that will be created.
+
+Instead of instantiating classes directly, you delegate the instantiation logic to a separate component – called the Factory.
+
+🧠 Why Use Factory Pattern?
+To avoid hardcoding object creation using new or ClassName()
+
+To allow the system to be easily extended (add new types without changing existing logic)
+
+To adhere to SOLID principles (Open/Closed principle)
+
+🧪 Real-World Analogy
+🏭 Car Factory Analogy:
+You don’t go and build a car yourself (SUV, Sedan, etc.). You call a car factory, tell it what type you want, and it builds and gives it to you.
+
+Similarly:
+
+python
+Copy
+Edit
+car = CarFactory.create_car("SUV")
+You don’t instantiate SUV() or Sedan() directly in your test.
+
+🧱 Structure of Factory Pattern
+Product Interface / Base Class
+(e.g., Driver, Notification, ReportExporter)
+
+Concrete Implementations
+(e.g., ChromeDriver, FirefoxDriver)
+
+Factory Class
+(e.g., DriverFactory)
+
+✅ Factory Pattern – Python Example
+🧪 UI Automation Use Case: WebDriver Factory
+Let’s say you want to support multiple browsers in Selenium.
+
+Step 1: Create a Base Interface (Optional)
+python
+Copy
+Edit
+class Browser:
+    def launch(self):
+        raise NotImplementedError("Subclasses should implement this!")
+Step 2: Create Concrete Implementations
+python
+Copy
+Edit
+from selenium import webdriver
+
+class ChromeBrowser(Browser):
+    def launch(self):
+        print("Launching Chrome...")
+        return webdriver.Chrome()
+
+class FirefoxBrowser(Browser):
+    def launch(self):
+        print("Launching Firefox...")
+        return webdriver.Firefox()
+Step 3: Create the Factory Class
+python
+Copy
+Edit
+class BrowserFactory:
+    @staticmethod
+    def get_browser(browser_name):
+        browser_name = browser_name.lower()
+        if browser_name == "chrome":
+            return ChromeBrowser().launch()
+        elif browser_name == "firefox":
+            return FirefoxBrowser().launch()
+        else:
+            raise Exception(f"Unsupported browser: {browser_name}")
+✅ Usage in Your Tests
+python
+Copy
+Edit
+driver = BrowserFactory.get_browser("chrome")
+driver.get("https://example.com")
+driver.quit()
+🏗 Why It’s Powerful
+Benefit	Description
+Open for Extension	Add new browsers like Edge, Safari without changing client code
+Centralized Control	Logic to decide "which object" to return is inside the factory
+Simplifies Tests	Tests don’t worry about driver creation logic
+Encapsulation	Keeps object creation hidden from client/test
+
+🔁 Example: Notification Sender Factory
+You want to send notifications via Email, SMS, Slack, etc.
+
+Product Interface:
+python
+Copy
+Edit
+class Notifier:
+    def send(self, message):
+        raise NotImplementedError
+Concrete Classes:
+python
+Copy
+Edit
+class EmailNotifier(Notifier):
+    def send(self, message):
+        print(f"Sending Email: {message}")
+
+class SlackNotifier(Notifier):
+    def send(self, message):
+        print(f"Sending Slack: {message}")
+Factory:
+python
+Copy
+Edit
+class NotifierFactory:
+    @staticmethod
+    def get_notifier(channel):
+        if channel == "email":
+            return EmailNotifier()
+        elif channel == "slack":
+            return SlackNotifier()
+        else:
+            raise Exception("Unknown notifier type")
+Usage:
+python
+Copy
+Edit
+notifier = NotifierFactory.get_notifier("email")
+notifier.send("Test execution completed.")
+✅ Factory Pattern in Test Automation Framework
+Use Case	Factory Pattern Usage
+WebDriver Initialization	Create appropriate browser driver object
+Test Data Generators	Generate test data per environment/type
+Logger Config	Choose console/file/logger depending on env
+API Client Factory	Return REST/GraphQL/SOAP client based on config
+Page Object Instantiation	Dynamically load Page Objects (if needed)
+
+🧠 Design Principle Behind
+The Factory Pattern is based on the Open/Closed Principle:
+
+Software entities should be open for extension, but closed for modification.
+
+You don’t touch your test code when adding new driver types, just extend the factory.
+
+❌ Without Factory – Bad Practice
+python
+Copy
+Edit
+# Bad: hardcoding
+driver = webdriver.Chrome()  # tightly coupled
+Tomorrow, if you want Firefox, you'll have to:
+
+Change code
+
+Risk regression
+
+With Factory:
+
+python
+Copy
+Edit
+driver = BrowserFactory.get_browser("firefox")  # Flexible, maintainable
+✅ Summary
+Key Concept	Explanation
+Pattern Type	Creational
+Use Case	When you need to create objects dynamically
+Benefit	Avoid tight coupling, centralized object creation
+Best Fit In Automation	WebDriver, Notifications, Logger, API Clients
+Related Patterns	Abstract Factory (for grouped families of objects)

@@ -1,0 +1,129 @@
+💡 What is the Singleton Pattern?
+The Singleton Pattern is a creational design pattern that ensures only one instance of a class is created and used throughout the entire runtime of the application.
+
+🎯 Purpose
+Avoid multiple instances of objects that should be shared globally (like WebDriver, Logger, ConfigManager, DB connection, etc.).
+
+Helps in managing shared resources safely and efficiently.
+
+🔧 Real-World Analogy
+TV Remote Control in your home:
+You don’t create a new remote every time you want to change the channel — you use the same single remote instance.
+
+In automation:
+
+Your WebDriver or Logger class should behave the same — create once, reuse everywhere.
+
+🧪 Where Singleton is Used in Automation?
+Use Case	Why Singleton?
+WebDriver	Avoid launching multiple browser instances
+Logger	Consistent logging to a single file/stream
+Config Reader	Centralized access to config properties
+DB Connection	Avoid opening multiple DB sessions
+Test Context	Share test-level state across classes
+
+✅ Basic Singleton Implementation (Python)
+python
+Copy
+Edit
+class Singleton:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(Singleton, cls).__new__(cls)
+            # Initialize your resource here
+        return cls._instance
+✅ Selenium WebDriver Singleton Example (Python)
+🔄 driver_manager.py
+python
+Copy
+Edit
+from selenium import webdriver
+
+class WebDriverSingleton:
+    _driver = None
+
+    @staticmethod
+    def get_driver():
+        if WebDriverSingleton._driver is None:
+            options = webdriver.ChromeOptions()
+            options.add_argument("--start-maximized")
+            WebDriverSingleton._driver = webdriver.Chrome(options=options)
+        return WebDriverSingleton._driver
+
+    @staticmethod
+    def close_driver():
+        if WebDriverSingleton._driver:
+            WebDriverSingleton._driver.quit()
+            WebDriverSingleton._driver = None
+✅ Usage in Test
+python
+Copy
+Edit
+from driver_manager import WebDriverSingleton
+
+def test_login():
+    driver = WebDriverSingleton.get_driver()
+    driver.get("https://example.com/login")
+    # perform actions
+    WebDriverSingleton.close_driver()
+🧱 How It Works (Step-by-Step)
+First call to get_driver() → driver is None, so it creates one instance.
+
+Next call to get_driver() → returns the same object, does not recreate.
+
+Ensures only one driver across all tests (especially useful in PyTest or Behave hooks).
+
+🔐 Thread-Safety Concern (Advanced)
+In multi-threaded environments, Singleton should be thread-safe to avoid race conditions. Python’s Global Interpreter Lock (GIL) helps a bit, but explicit locks are safer:
+
+python
+Copy
+Edit
+import threading
+
+class ThreadSafeSingleton:
+    _instance = None
+    _lock = threading.Lock()
+
+    @classmethod
+    def get_instance(cls):
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = cls()
+        return cls._instance
+❌ What Happens If You Don't Use Singleton?
+Multiple driver instances → multiple browser windows
+
+Multiple logger files → scattered logs
+
+Multiple DB connections → resource leak
+
+Redundant config parsing → slower execution
+
+✅ Best Practices for Singleton in Automation
+Best Practice	Reason
+Add a reset() or close() method	Clean teardown at end of test suite
+Lazy Initialization	Create only when needed
+Use static access	Avoid multiple object instantiations
+Combine with DI/Factory	For extensibility in large frameworks
+Use Singleton in Hooks	For shared test setup in Behave or PyTest
+
+🧪 Sample Use Case in Behave
+python
+Copy
+Edit
+# environment.py
+from driver_manager import WebDriverSingleton
+
+def before_all(context):
+    context.driver = WebDriverSingleton.get_driver()
+
+def after_all(context):
+    WebDriverSingleton.close_driver()
+🔁 Singleton vs Global Variable
+Aspect	Singleton	Global Variable
+Controlled Access	Yes	No (any module can overwrite)
+Lazy Init	Yes (only when needed)	No (usually created at load time)
+Safe for reuse	Yes	Risky (can be reassigned)

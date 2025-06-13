@@ -18,12 +18,16 @@ def validate_prime(number: int) -> bool:
 
 print(validate_prime(9))
 
-def return_prime_numbers(limit: int) -> list[int]:
-    prime_number_list: list[int] = []
+if __name__ == "__main__":
+    series_length = 5
+    value = 0
+    prime_series = []
 
-    for item in range(2, limit+1):
-        if validate_prime(item):
-            prime_number_list.append(item)
-    return prime_number_list
+    while len(prime_series) < series_length:
+        if validate_prime(value):
+            prime_series.append(value)
+        value += 1
+
+    print(f'Prime series: {prime_series}')
 
 print(return_prime_numbers(19))

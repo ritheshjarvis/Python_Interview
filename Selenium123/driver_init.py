@@ -19,8 +19,8 @@ driver = webdriver.Chrome(service=service)
 # driver.implicitly_wait(30)
 # driver.maximize_window()
 
-WebElement element = driver.find_element(By.ID, "")
+element = driver.find_element(By.ID, "")
 
-element = WebDriverWait(driver, 30).until(EC.element_to_be_clickable())
+element1 = WebDriverWait(driver, 30).until(EC.element_to_be_clickable())
 
 driver.fullscreen_window()

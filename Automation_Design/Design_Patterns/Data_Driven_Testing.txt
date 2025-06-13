@@ -1,0 +1,114 @@
+✅ What is the Data-Driven Pattern?
+The Data-Driven Pattern is a test automation design where:
+
+Test logic (what the test does) and
+
+Test data (what values it uses)
+
+are kept separate.
+
+Instead of hardcoding values inside your test scripts, the test reads data from an external source (like Excel, JSON, CSV, or a database) and runs the same test logic multiple times with different data sets.
+
+🎯 Why Use It?
+Avoids duplication of test code
+
+Enables running tests with multiple inputs
+
+Makes the test cases easier to maintain and update
+
+Supports parameterized testing
+
+Essential for boundary testing, negative testing, and coverage
+
+🧪 Real-World Example (Login Test)
+🔴 ❌ Without Data-Driven Approach:
+python
+Copy
+Edit
+def test_login():
+    driver.find_element(By.ID, "username").send_keys("admin")
+    driver.find_element(By.ID, "password").send_keys("admin123")
+    driver.find_element(By.ID, "login").click()
+➡ If you want to test 10 user credentials, you’ll duplicate this 10 times.
+
+✅ With Data-Driven Pattern:
+You extract test data to a separate CSV / JSON / Excel, then write one test that loops through all data sets.
+
+📁 Folder Structure Example
+kotlin
+Copy
+Edit
+project/
+│
+├── tests/
+│   └── test_login.py
+├── pages/
+│   └── login_page.py
+├── data/
+│   ├── login_data.csv
+│   └── users.json
+└── utils/
+    └── data_loader.py
+🧾 Sample login_data.csv
+csv
+Copy
+Edit
+username,password,expected_result
+admin,admin123,success
+user1,wrongpass,failure
+guest,guest123,success
+📄 data_loader.py (CSV Reader)
+python
+Copy
+Edit
+import csv
+
+def load_test_data(filepath):
+    with open(filepath, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        return [row for row in reader]
+🧪 test_login.py (with PyTest)
+python
+Copy
+Edit
+import pytest
+from utils.data_loader import load_test_data
+from pages.login_page import LoginPage
+
+test_data = load_test_data("data/login_data.csv")
+
+@pytest.mark.parametrize("data", test_data)
+def test_login(data, driver):
+    page = LoginPage(driver)
+    page.enter_username(data['username'])
+    page.enter_password(data['password'])
+    result = page.submit_login()
+
+    assert result == data['expected_result']
+💡 Where to Store Data?
+You can choose the format based on your needs:
+
+Format	When to Use
+CSV	Simple tabular test data
+JSON	Hierarchical or structured data
+Excel	Business-readable format
+Database	Dynamic or production-like data
+YAML	Readable config or test values
+
+✅ Key Benefits
+Benefit	Explanation
+Reusability	One test, multiple data sets
+Maintainability	Test data changes don't require code edits
+Scalability	Easily increase test coverage with new data sets
+Separation of concerns	Clean distinction between test logic and data
+
+🔐 Pro Tips for UI Automation
+Add a data validator to catch missing fields.
+
+Use dynamic test naming (@pytest.mark.parametrize(ids=...)) for better report readability.
+
+Combine with Page Object Model for best structure.
+
+Use ExcelReader, Pandas, or openpyxl if using Excel files.
+
+Parameterize test from JSON using json.load().

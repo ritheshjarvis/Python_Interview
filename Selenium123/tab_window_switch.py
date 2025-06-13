@@ -30,8 +30,9 @@ current_window = driver.current_window_handle
 print(current_window)
 
 for window in driver.window_handles:
-    if window != driver.current_window_handle:
+    if window != driver.current_window_handle: #  driver.title == 'xyz'
         driver.switch_to.window(window)
+
 
 print("After Switching ------")
 current_window = driver.current_window_handle
@@ -57,6 +58,16 @@ for window in driver.window_handles:
             driver.switch_to.window(window)
 
 driver.switch_to.default_content()
+
+# ---- Multiple window --------------
+target_title = "xyz"
+for handle in driver.window_handles:
+    driver.switch_to.window(handle)
+    if driver.title == target_title:
+        print(f"Switched to window: {target_title}")
+        break
+else:
+    print(f"Window with title '{target_title}' not found.")
 
 
 
