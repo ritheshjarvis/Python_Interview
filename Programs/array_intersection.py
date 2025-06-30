@@ -12,6 +12,7 @@ for item in arr1:
 print(output)
 
 # Method 2 - Set Intersection use
+# First convert to Sets
 
 output = list(set(arr1).intersection((set(arr2))))
 print(output)
