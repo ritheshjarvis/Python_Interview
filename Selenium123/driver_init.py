@@ -7,7 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Chrome()
-driver.get("xyz")
+driver.get("https://www.saucedemo.com/")
 
 # Specify the path to the ChromeDriver executable
 chrome_driver_path = "/path/to/chromedriver"

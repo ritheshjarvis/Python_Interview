@@ -29,6 +29,7 @@ end = len(input_list) - 1
 
 while(start <= end):
     mid = start + ((end-start)//2)
+    print(f'Start: {start}, End: {end}, Mid: {mid}, Value at Mid: {input_list[mid]}')
 
     if input_list[mid] == search:
         out_index = mid
