@@ -1,5 +1,7 @@
 # Generate prime series of first 5 numbers
 
+# Trick - while(len(prime_series) < target):    
+
 """
  - A prime number is a natural number greater than 1 that has exactly two distinct positive divisors: 1 and itself.
  - 1 is not a prime number:
@@ -7,24 +9,25 @@
  Ex: [2, 3, 5, 7, 11, 13, 17]
 """
 
-def prime_check(number):
-    if number <= 1:
+def is_prime(num: int) -> bool:
+    if num <= 1:
         return False
     else:
-        for item_ in range(2, number):
-            if number % item_ == 0:
+        for item in range(2, num):
+            if num % item == 0:
                 return False
     return True
+    
+target: int = 9
+counter: int = 2
+prime_series: list[int] = []
 
-prime_series = []
-
-num = 2
-while len(prime_series) < 5:
-    if prime_check(num):
-        prime_series.append(num)
-    num += 1
-
-print("First 5 prime numbers:", prime_series)
+while(len(prime_series) < target):
+    if is_prime(counter):
+        prime_series.append(counter)
+    counter += 1
+    
+print(prime_series)
 
 # ------------ JSON ----- Assertion --------
 

@@ -1,7 +1,7 @@
 """
  - Providing the controlled/restricted access to the attributes.
  - Achieved through Access Modifiers (public, private and protected members) and getters and setters
- - Encapsulation is an Object-Oriented Programming (OOP) principle that involves bundling the data (attributes) and methods (functions) that operate on the data into a single unit called a class.
+ - This involves bundling the data (attributes) and methods (functions) that operate on the data into a single unit called a class.
  - Encapsulation is the process of hiding the internal state of an object and requiring all interactions to be performed through an object’s methods.
     - Provides better control over data.
     - Prevents accidental modification of data.

@@ -46,3 +46,29 @@ if __name__ == '__main__':
     n = 5
     fib_series = fibonacci_series(n)
     print(f"The first {n} numbers in the Fibonacci series are: {fib_series}")
+
+
+# ---------------------------------------------------------
+
+# Fibonacci series
+
+def fibonacci_series(target:int) -> list[int] | bool:
+    fib_series = [0, 1]
+    
+    if target < 1:
+        return False
+    elif target == 1:
+        return list(fib_series[0]);
+    elif target == 2:
+        return fib_series
+    else:
+        for item in range(2, target):
+            fib_series.append(fib_series[item-1] + fib_series[item-2])
+    return fib_series
+    
+target = 10
+series = fibonacci_series(target)
+if series:
+    print(series)
+else:
+    print("Enter Positive Natural Number")
