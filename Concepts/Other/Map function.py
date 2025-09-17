@@ -8,7 +8,7 @@ The map() function in Python is used to apply a function to each item in an iter
 
 iterable: The sequence (list, tuple, etc.) whose elements will be processed.
 
-🔹 It returns an iterator, so you need to convert it to a list or tuple to see the results.
+🔹 It returns an map object (kind of Iterator), so you need to convert it to a list or tuple to see the results.
 """
 
 #  Using map() to Convert Data Types

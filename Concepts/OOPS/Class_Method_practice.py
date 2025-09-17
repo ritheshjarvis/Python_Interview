@@ -45,7 +45,7 @@ class Student:
         name = email.split('@')[0]
         return cls(name)
 
-s1 = Student.student_with_email(3)
+s1 = Student.student_with_email("rithesh@gmail.com")
 
 print(s1.name)
 print(s1.count)
