@@ -1,4 +1,4 @@
-# Find is there any duplicate in a given list and return True of False
+# First Program: Find is there any duplicate in a given list and return True of False
 
 def validate_duplicate(input_: list) -> bool:
     original = []
@@ -19,9 +19,19 @@ def validate_duplicate(input_ : list) -> bool:
             return False
     return True
 
+def duplicate_check_2(input_):
+    dict = {}
+    
+    for item in input_:
+        if item not in dict.keys():
+            dict[item] = None
+        else:
+            return True
+    return False
+
 input_list = [1,2,3,4]
 print(validate_duplicate(input_list))
 
-# lamda function to get the square of number
+# Second Program: lamda function to get the square of number
 output = list(map(lambda x:x*x, [1, 2, 5]))
 print(output)
