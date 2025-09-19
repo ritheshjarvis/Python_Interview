@@ -20,12 +20,8 @@ print(add(1, 2))
 def square(x):
     return x * x
 
-numbers = [1, 2, 3, 4]
-squared = map(square, numbers)
-print(list(squared))  # Output: [1, 4, 9, 16]
-
-def square(x):
-    return x * x
+# Lambda Function
+square = lambda x: x*x
 
 numbers = [1, 2, 3, 4]
 squared = map(square, numbers)
